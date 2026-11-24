@@ -6,7 +6,7 @@
 <title>The One-Slide Update</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&display=swap">
 <style>
-/* Self-study version. One screen per step, stage tabs and step tabs for navigation. Typed and chosen answers with Check, explanations after checking, work saved on this laptop, summary to send at the end. BOSS reference palette: monochrome structure, camel for used states, deep camel accent. */
+/* Self-study version. One screen per step, stage tabs and step tabs for navigation. Typed and chosen answers with Check, explanations after checking, work saved on this laptop, reminder to send both recordings to Ben at the end. BOSS reference palette: monochrome structure, camel for used states, deep camel accent. */
 :root{
   --bg:#ffffff;--ink:#111111;--muted:#5e5e5e;--line:#e2dbd0;
   --gold:#c19a6b;--gold-soft:#f1e7da;--panel:#f2eee8;
@@ -101,6 +101,7 @@ h2{font-family:var(--display);font-weight:800;font-size:var(--fs-h);line-height:
 .howto ul{margin:0;padding-left:1.3em}
 .howto ul li+li{margin-top:.3em}
 .howto p{margin:0 0 .8em}
+.sendnote{margin-right:auto;font-size:var(--fs-card);font-weight:600;color:var(--accent)}
 .tile{border:2px solid var(--ink);background:var(--panel);padding:calc(var(--pad) * .8);text-align:left;cursor:pointer;font-family:var(--body);color:var(--ink);border-radius:2px;display:flex;flex-direction:column;gap:4px;min-width:0}
 .tile:hover{background:var(--gold-soft)}
 .tile.done{background:var(--gold)}
@@ -215,7 +216,7 @@ h2{font-family:var(--display);font-weight:800;font-size:var(--fs-h);line-height:
 .timer.zero .t-disp{color:var(--bad)}
 
 /* Summary */
-.summary{flex:1;min-height:0;overflow:auto;border:2px solid var(--ink);background:var(--panel);padding:var(--pad) clamp(14px,1.6vw,28px);font-family:var(--body);font-size:var(--fs-mid);line-height:1.45;white-space:pre-wrap;margin:0}
+flex:1;min-height:0;overflow:auto;border:2px solid var(--ink);background:var(--panel);padding:var(--pad) clamp(14px,1.6vw,28px);font-family:var(--body);font-size:var(--fs-mid);line-height:1.45;white-space:pre-wrap;margin:0}
 .copied{font-size:var(--fs-label);color:var(--ok);font-weight:600}
 
 /* Overlay for language boxes and the model presentation */
@@ -524,28 +525,7 @@ h2{font-family:var(--display);font-weight:800;font-size:var(--fs-h);line-height:
           <button class="pill go" data-box="modelPres" style="align-self:flex-start">Show the model presentation</button>
         </div>
       </div>
-      <div class="stepfoot"><span class="score" data-tickcount></span><button class="pill rec" data-rec aria-pressed="false">I've recorded my final run</button><button class="resetlink" data-reset>Reset</button></div>
-    </div>
-  </div>
-</section>
-
-<section class="stage" data-num="9" data-title="Send to Ben">
-  <div class="stage-head"><h2>Send to Ben</h2></div>
-  <div class="steps"><button class="pill stepbtn" data-step="1">9.1 Finish it</button><button class="pill stepbtn" data-step="2">9.2 Your summary</button></div>
-  <div class="body">
-    <div class="step" data-step="1" data-name="9.1 Finish it">
-      <p class="task">Finish each sentence.</p>
-      <div class="fill c3">
-        <div class="card"><span class="k">Sentence 1</span>The phrase I'll use in my next call is ...<textarea aria-label="The phrase I'll use in my next call is" spellcheck="false"></textarea></div>
-        <div class="card"><span class="k">Sentence 2</span>The number I need to say more carefully is ...<textarea aria-label="The number I need to say more carefully is" spellcheck="false"></textarea></div>
-        <div class="card"><span class="k">Sentence 3</span>In our next class, I want to work on ...<textarea aria-label="In our next class, I want to work on" spellcheck="false"></textarea></div>
-      </div>
-      <div class="stepfoot"><button class="resetlink" data-reset>Reset</button></div>
-    </div>
-    <div class="step" data-step="2" data-name="9.2 Your summary">
-      <p class="task">Copy your summary and send it to Ben by WhatsApp or email, together with your two voice recordings: your first run and your final run.</p>
-      <pre class="summary" id="summary"></pre>
-      <div class="stepfoot"><span class="copied" id="copied"></span><button class="pill" id="dl">Download as a file</button><button class="pill go" id="copy">Copy summary</button></div>
+      <div class="stepfoot"><span class="sendnote">Last step: send both recordings to Ben by WhatsApp or email.</span><span class="score" data-tickcount></span><button class="pill rec" data-rec aria-pressed="false">I've recorded my final run</button><button class="resetlink" data-reset>Reset</button></div>
     </div>
   </div>
 </section>
@@ -925,7 +905,6 @@ h2{font-family:var(--display);font-weight:800;font-size:var(--fs-h);line-height:
     s._pick=function(k){
       btns.forEach(function(x){x.setAttribute('aria-selected',x.dataset.step===k?'true':'false')});
       steps.forEach(function(x){x.hidden=x.dataset.step!==k});
-      if(k==='2'&&s.querySelector('#summary'))buildSummary();
     };
     btns.forEach(function(x){x.addEventListener('click',function(){if(x.classList.contains('locked'))return;s._pick(x.dataset.step);x.blur()})});
     if(btns.length)s._pick('1');
@@ -939,7 +918,6 @@ h2{font-family:var(--display);font-weight:800;font-size:var(--fs-h);line-height:
   function stepDone(st){
     var k=stepKey(st);
     if(st.hasAttribute('data-typed')||st.hasAttribute('data-sort')||st.hasAttribute('data-matchstep'))return !!S.checked[k];
-    if(st.querySelector('#summary'))return !!S.sent.done;
     var ta=[].slice.call(st.querySelectorAll('textarea')),tOk=ta.every(function(t){return t.value.trim()});
     if(st.hasAttribute('data-gatestep'))return tOk&&!!S.gates[k];
     var pk=st.querySelector('[data-pick]');if(pk&&st.querySelectorAll('.pick.on').length<+pk.dataset.pick)return false;
@@ -977,43 +955,6 @@ h2{font-family:var(--display);font-weight:800;font-size:var(--fs-h);line-height:
     if(prev){S.scores[k]=prev;var sc=step.querySelector('[data-score]');if(sc&&sc.textContent!==prev)sc.textContent=prev+' (first try)'}
   });
   save();
-
-  // ---------- Summary ----------
-  function buildSummary(){
-    var lines=['THE ONE-SLIDE UPDATE: SELF-STUDY','Jose','Date: '+new Date().toLocaleDateString('en-GB'),''];
-    stages.forEach(function(s,i){
-      if(i===0)return;
-      s.querySelectorAll('.step').forEach(function(st){
-        if(st.querySelector('#summary'))return;
-        var name=st.dataset.name,k=stepKey(st),block=[];
-        if(S.scores[k])block.push('First-try score: '+S.scores[k]);
-        else if(st.hasAttribute('data-typed')||st.hasAttribute('data-sort')||st.hasAttribute('data-matchstep'))block.push('Not checked yet');
-        st.querySelectorAll('textarea').forEach(function(t){if(t.value.trim())block.push(t.getAttribute('aria-label')+': '+t.value.trim())});
-        var picks=[].slice.call(st.querySelectorAll('.pick.on')).map(function(p){var c=p.cloneNode(true);c.querySelector('.k').remove();return c.textContent.trim()});
-        if(picks.length)block.push('Sentences I chose: '+picks.join(' | '));
-        var ticks=st.querySelectorAll('.tick');
-        if(ticks.length){block.push('Checklist after listening back: '+st.querySelectorAll('.tick.on').length+' of '+ticks.length);
-          [].forEach.call(ticks,function(t){block.push((t.classList.contains('on')?'[x] ':'[ ] ')+t.textContent)})}
-        if(st.querySelector('[data-rec]'))block.push('Recording: '+(S.rec[k]?'done, voice memo to send':'not done yet'));
-        if(!block.length)block.push('Not done yet');
-        lines.push(name.toUpperCase());block.forEach(function(b){lines.push(b)});lines.push('');
-      });
-    });
-    lines.push('Voice memos to send: first run and final run.');
-    document.getElementById('summary').textContent=lines.join('\n');
-  }
-  document.getElementById('copy').addEventListener('click',function(){
-    buildSummary();var txt=document.getElementById('summary').textContent,msg=document.getElementById('copied');
-    function fallback(){var r=document.createRange();r.selectNodeContents(document.getElementById('summary'));var sel=window.getSelection();sel.removeAllRanges();sel.addRange(r);msg.textContent='Selected. Press Cmd+C or Ctrl+C to copy.'}
-    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(function(){msg.textContent='Copied. Paste it into WhatsApp or an email to Ben.'},fallback)}else fallback();
-    S.sent.done=true;save();markDone();
-  });
-  document.getElementById('dl').addEventListener('click',function(){
-    buildSummary();var blob=new Blob([document.getElementById('summary').textContent],{type:'text/plain'});
-    var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Jose one-slide update answers.txt';document.body.appendChild(a);a.click();
-    setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},500);
-    S.sent.done=true;save();markDone();
-  });
 
   // ---------- Start again (two taps) ----------
   var sa=document.getElementById('startAgain'),armed=null,note=document.getElementById('againNote');
