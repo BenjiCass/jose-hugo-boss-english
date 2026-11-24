@@ -16,15 +16,15 @@
   --ok:#2e7d32;--ok-soft:#e3f1e4;--bad:#c62828;--bad-soft:#fbe4e4;
   --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
   --body:"Barlow","Helvetica Neue",Arial,sans-serif;
-  --fs-card:clamp(1rem,min(1.65vw,3vh),2.1rem);
-  --fs-h:clamp(1.5rem,min(3vw,5.2vh),3.6rem);
-  --fs-label:clamp(.78rem,min(1vw,1.8vh),1.25rem);
-  --fs-card-lg:clamp(1.2rem,min(2.3vw,4.1vh),3rem);
-  --fs-mid:clamp(.9rem,min(1.3vw,2.35vh),1.65rem);
-  --pill-h:clamp(24px,3.2vh,40px);
-  --gap:clamp(8px,1.5vh,20px);
-  --pad:clamp(10px,1.6vh,24px);
-  --gutter:clamp(16px,2.2vw,40px);
+  --fs-card:clamp(1rem,min(1.65vw,3vh),3.4rem);
+  --fs-h:clamp(1.5rem,min(3vw,5.2vh),5.8rem);
+  --fs-label:clamp(.78rem,min(1vw,1.8vh),2rem);
+  --fs-card-lg:clamp(1.2rem,min(2.3vw,4.1vh),4.6rem);
+  --fs-mid:clamp(.9rem,min(1.3vw,2.35vh),2.7rem);
+  --pill-h:clamp(24px,3.2vh,64px);
+  --gap:clamp(8px,1.5vh,32px);
+  --pad:clamp(10px,1.6vh,38px);
+  --gutter:clamp(16px,2.2vw,64px);
   color-scheme:light;
 }
 *{box-sizing:border-box}
@@ -33,7 +33,7 @@ html,body{height:100%}
 body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.35;margin:0;display:flex;flex-direction:column}
 
 nav.tabs{flex:none;display:flex;width:100%;border-bottom:3px solid var(--ink);background:var(--bg)}
-nav.tabs button{flex:1 1 0;min-width:0;font-family:var(--display);font-weight:700;font-size:clamp(.8rem,min(1.1vw,2vh),1.3rem);text-transform:uppercase;letter-spacing:.04em;border:0;border-right:2px solid var(--ink);background:var(--bg);color:var(--ink);padding:clamp(8px,1.3vh,16px) 6px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:background .2s}
+nav.tabs button{flex:1 1 0;min-width:0;font-family:var(--display);font-weight:700;font-size:clamp(.8rem,min(1.1vw,2vh),2.1rem);text-transform:uppercase;letter-spacing:.04em;border:0;border-right:2px solid var(--ink);background:var(--bg);color:var(--ink);padding:clamp(8px,1.3vh,26px) 6px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:background .2s}
 nav.tabs button:last-child{border-right:0}
 nav.tabs button.done{background:var(--gold-soft)}
 nav.tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg)}
@@ -85,10 +85,10 @@ h2{font-family:var(--display);font-weight:800;font-size:var(--fs-h);line-height:
 /* Home */
 .home .body{display:grid;grid-template-rows:minmax(0,1fr) auto;gap:var(--gap)}
 .homegrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:clamp(16px,3vw,48px);align-items:center;min-height:0}
-.board{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:clamp(2rem,min(6.2vw,9vh),7rem);line-height:.92}
+.board{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:clamp(2rem,min(6.6vw,11vh),13rem);line-height:.92}
 .board span{display:block}
 .board span:last-child{color:var(--accent)}
-.howto{border:2px solid var(--ink);background:var(--panel);padding:var(--pad) clamp(14px,1.6vw,28px);font-size:var(--fs-mid);min-height:0;overflow:hidden}
+.howto{border:2px solid var(--ink);background:var(--panel);padding:calc(var(--pad) * 1.2) clamp(14px,1.8vw,56px);font-size:clamp(.9rem,min(1.45vw,2.6vh),3rem);line-height:1.4;min-height:0;overflow:hidden}
 .howto h3{margin:0 0 .4em;font-family:var(--display);font-weight:800;text-transform:uppercase;letter-spacing:.06em;font-size:1.15em}
 .howto ol{margin:0;padding-left:1.3em}
 .howto li+li{margin-top:.3em}
@@ -97,8 +97,8 @@ h2{font-family:var(--display);font-weight:800;font-size:var(--fs-h);line-height:
 .tile{border:2px solid var(--ink);background:var(--panel);padding:calc(var(--pad) * .8);text-align:left;cursor:pointer;font-family:var(--body);color:var(--ink);border-radius:2px;display:flex;flex-direction:column;gap:4px;min-width:0}
 .tile:hover{background:var(--gold-soft)}
 .tile.done{background:var(--gold-soft)}
-.tile .num{font-family:var(--display);font-weight:800;font-size:clamp(1.4rem,min(2.3vw,4vh),2.8rem);line-height:.9;color:var(--accent)}
-.tile .name{font-family:var(--display);font-weight:700;text-transform:uppercase;font-size:clamp(.85rem,min(1.1vw,2vh),1.4rem);line-height:1.05}
+.tile .num{font-family:var(--display);font-weight:800;font-size:clamp(1.4rem,min(2.6vw,4.6vh),5rem);line-height:.9;color:var(--accent)}
+.tile .name{font-family:var(--display);font-weight:700;text-transform:uppercase;font-size:clamp(.85rem,min(1.35vw,2.4vh),2.6rem);line-height:1.05}
 
 /* Slide chart */
 .slide{flex:1;min-height:0;min-width:0;display:flex;flex-direction:column;gap:calc(var(--gap) * .6);border:2px solid var(--ink);background:var(--bg);padding:var(--pad) clamp(14px,1.6vw,30px)}
@@ -208,7 +208,7 @@ h2{font-family:var(--display);font-weight:800;font-size:var(--fs-h);line-height:
 
 /* Overlay for language boxes and the model presentation */
 .overlay{position:fixed;inset:0;background:rgba(17,17,17,.6);display:flex;align-items:center;justify-content:center;padding:clamp(16px,4vw,60px);z-index:20}
-.overlay .box{background:var(--bg);border:3px solid var(--ink);width:min(1300px,100%);max-height:100%;overflow:auto;padding:clamp(24px,4vh,60px) clamp(22px,4vw,64px);position:relative}
+.overlay .box{background:var(--bg);border:3px solid var(--ink);width:min(80vw,100%);max-height:100%;overflow:auto;padding:clamp(24px,4vh,60px) clamp(22px,4vw,64px);position:relative}
 .overlay .close{position:absolute;top:12px;right:12px}
 .overlay h3{margin:0 0 .5em;font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:var(--fs-h);line-height:1}
 .overlay h4{margin:1em 0 .3em;font-family:var(--display);font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);font-size:calc(var(--fs-card) * 1.05)}
