@@ -100,6 +100,7 @@ h2{font-family:var(--display);font-weight:800;font-size:var(--fs-h);line-height:
 .homeinfo{display:flex;flex-direction:column;gap:var(--gap);min-height:0}
 .howto ul{margin:0;padding-left:1.3em}
 .howto ul li+li{margin-top:.3em}
+.howto p{margin:0 0 .8em}
 .tile{border:2px solid var(--ink);background:var(--panel);padding:calc(var(--pad) * .8);text-align:left;cursor:pointer;font-family:var(--body);color:var(--ink);border-radius:2px;display:flex;flex-direction:column;gap:4px;min-width:0}
 .tile:hover{background:var(--gold-soft)}
 .tile.done{background:var(--gold)}
@@ -254,12 +255,14 @@ h2{font-family:var(--display);font-weight:800;font-size:var(--fs-h);line-height:
       <div class="board"><span>One slide.</span><span>Two minutes.</span></div>
       <div class="homeinfo">
         <div class="howto">
-          <h3>By the end, you can</h3>
+          <h3>Your goal</h3>
+          <p>In a video call with a senior colleague who doesn't know Iberia, present your slide in two minutes. Describe each change accurately, rank the lines, give a reason and a verdict. Then answer one question from HQ and bring it back to the slide.</p>
+          <h3>On the way, you practise</h3>
           <ul>
-            <li>Present one slide in two minutes: open, point, explain, close.</li>
-            <li>Describe changes accurately with from, to, by and percentage points.</li>
-            <li>Rank results and say numbers the way you would in a call.</li>
-            <li>Handle the call: technical problems and questions from HQ.</li>
+            <li>Describing movement with from, to, by and percentage points.</li>
+            <li>Ranking results and saying figures the way you would in a call.</li>
+            <li>Opening, signposting and closing a call, and handling technical problems.</li>
+            <li>Answering a sceptical question with a reason, then going back to the slide.</li>
           </ul>
         </div>
         <div class="howto">
@@ -353,12 +356,12 @@ h2{font-family:var(--display);font-weight:800;font-size:var(--fs-h);line-height:
         <div class="gi"><p>That's an increase <input type="text" autocomplete="off" spellcheck="false" data-ans="of" aria-label="Gap 4"> 13 percentage points.</p><span class="why" hidden>Noun + "of" + the size: an increase of 13 points.</span></div>
         <div class="gi"><p>HUGO fell <input type="text" autocomplete="off" spellcheck="false" data-ans="by" aria-label="Gap 5"> six percentage points.</p><span class="why" hidden>Verb + "by" + the size of the change: it fell by six points.</span></div>
         <div class="gi"><p>There was a slight rise <input type="text" autocomplete="off" spellcheck="false" data-ans="in" aria-label="Gap 6"> BOSS Orange.</p><span class="why" hidden>Noun + "in" + the thing that changed: a rise in BOSS Orange.</span></div>
-        <div class="gi"><p>Compared <input type="text" autocomplete="off" spellcheck="false" data-ans="with|to" aria-label="Gap 7"> last season, BOSS Black is down three points.</p><span class="why" hidden>"Compared with" or "compared to" last season.</span></div>
+        <div class="gi"><p>Compared <input type="text" autocomplete="off" spellcheck="false" data-ans="with|to" aria-label="Gap 7"> last year, BOSS Black is down three points.</p><span class="why" hidden>"Compared with" or "compared to" last year. The slide compares AW26 with AW25, so "last season" would mean SS26.</span></div>
       </div>
       <div class="stepfoot"><span class="hint" data-wait>Fill every gap to see Check.</span><span class="score" data-score></span><button class="pill go" data-check hidden>Check</button><button class="pill" data-showkey hidden>Show answers</button><button class="resetlink" data-reset>Reset</button></div>
     </div>
     <div class="step" data-step="2" data-name="4.2 Fast, big, good" data-sort>
-      <p class="task">Drag each word into the right column, then press Check. <span>Each column has four words.</span></p>
+      <p class="task">Drag each word into the right column, then press Check. <span>Each column has four words. Use these words instead of "very": they tell HQ how fast, how big, or how good.</span></p>
       <div class="tray" data-zone="tray">
         <div class="dcard" draggable="true" data-cat="news">encouraging</div>
         <div class="dcard" draggable="true" data-cat="speed">sluggish</div>
@@ -419,7 +422,7 @@ h2{font-family:var(--display);font-weight:800;font-size:var(--fs-h);line-height:
         <div class="mrow" data-key="2"><div class="mfix"><span class="mn">2</span>In second place</div><div class="mslot"><div class="mtile" draggable="true" data-key="2">BOSS Black, 41%</div></div></div>
         <div class="mrow" data-key="3"><div class="mfix"><span class="mn">3</span>Not far behind</div><div class="mslot"><div class="mtile" draggable="true" data-key="3">BOSS Orange, 38%</div></div></div>
         <div class="mrow" data-key="4"><div class="mfix"><span class="mn">4</span>In fourth position</div><div class="mslot"><div class="mtile" draggable="true" data-key="4">HUGO Blue, 33%</div></div></div>
-        <div class="mrow" data-key="5"><div class="mfix"><span class="mn">5</span>Quite a long way behind</div><div class="mslot"><div class="mtile" draggable="true" data-key="5">HUGO, 29%</div></div></div>
+        <div class="mrow" data-key="5"><div class="mfix"><span class="mn">5</span>In last place</div><div class="mslot"><div class="mtile" draggable="true" data-key="5">HUGO, 29%</div></div></div>
       </div>
       <div class="stepfoot"><span class="score" data-score></span><button class="pill go" data-check>Check</button><button class="pill" data-showkey hidden>Show answers</button><button class="resetlink" data-reset>Reset</button></div>
     </div>
@@ -447,7 +450,7 @@ h2{font-family:var(--display);font-weight:800;font-size:var(--fs-h);line-height:
       <div class="match" data-match="sign">
         <div class="mrow" data-key="1"><div class="mfix"><span class="mn">1</span>OK, let's get started.</div><div class="mslot"><div class="mtile" draggable="true" data-key="1">Can everybody see my screen?</div></div></div>
         <div class="mrow" data-key="2"><div class="mfix"><span class="mn">2</span>If you have any questions,</div><div class="mslot"><div class="mtile" draggable="true" data-key="2">please feel free to interrupt.</div></div></div>
-        <div class="mrow" data-key="3"><div class="mfix"><span class="mn">3</span>I've divided my update</div><div class="mslot"><div class="mtile" draggable="true" data-key="3">into three main parts.</div></div></div>
+        <div class="mrow" data-key="3"><div class="mfix"><span class="mn">3</span>I'll focus on</div><div class="mslot"><div class="mtile" draggable="true" data-key="3">two lines: BOSS Green and HUGO.</div></div></div>
         <div class="mrow" data-key="4"><div class="mfix"><span class="mn">4</span>I'd like to draw your attention</div><div class="mslot"><div class="mtile" draggable="true" data-key="4">to the third line from the top.</div></div></div>
         <div class="mrow" data-key="5"><div class="mfix"><span class="mn">5</span>I'll come back</div><div class="mslot"><div class="mtile" draggable="true" data-key="5">to that in a moment.</div></div></div>
         <div class="mrow" data-key="6"><div class="mfix"><span class="mn">6</span>Right, that brings me</div><div class="mslot"><div class="mtile" draggable="true" data-key="6">to the end of my update.</div></div></div>
@@ -467,39 +470,12 @@ h2{font-family:var(--display);font-weight:800;font-size:var(--fs-h);line-height:
   </div>
 </section>
 
-<section class="stage" data-num="7" data-title="Final run">
-  <div class="stage-head"><h2>Same slide. Better.</h2>
-    <div class="headtools"><div class="timer" data-secs="120"><button class="pill" data-t="-60">-1</button><span class="t-disp">02:00</span><button class="pill" data-t="60">+1</button><button class="pill go" data-tgo>Start</button></div></div>
-  </div>
-  <div class="body">
-    <div class="step" data-name="7 Final run">
-      <p class="task">Record yourself again on your phone: two minutes, same slide, same audience. Then listen back and tick what you did. <span>Keep this recording too.</span></p>
-      <div class="row" style="grid-template-columns:minmax(0,1.55fr) minmax(0,1fr)">
-        <div class="slide" data-chart="sell"></div>
-        <div class="col">
-          <div class="ticks">
-            <button class="tick">I opened the call and checked the screen.</button>
-            <button class="tick">I pointed at one line: "I'd like to draw your attention to ..."</button>
-            <button class="tick">I used "from ... to" and "by".</button>
-            <button class="tick">I said "percentage points" correctly.</button>
-            <button class="tick">I gave one reason: "This is due to ..."</button>
-            <button class="tick">I gave a verdict and closed: "I'll stop sharing there."</button>
-            <button class="tick">I didn't say "very".</button>
-          </div>
-          <button class="pill go" data-box="modelPres" style="align-self:flex-start">Show the model presentation</button>
-        </div>
-      </div>
-      <div class="stepfoot"><span class="score" data-tickcount></span><button class="pill rec" data-rec aria-pressed="false">I've recorded my final run</button><button class="resetlink" data-reset>Reset</button></div>
-    </div>
-  </div>
-</section>
-
-<section class="stage" data-num="8" data-title="Questions">
+<section class="stage" data-num="7" data-title="Questions">
   <div class="stage-head"><h2>The sceptical stakeholder</h2></div>
-  <div class="steps"><button class="pill stepbtn" data-step="1">8.1 How sure are you?</button><button class="pill stepbtn" data-step="2">8.2 HQ asks</button></div>
+  <div class="steps"><button class="pill stepbtn" data-step="1">7.1 How sure are you?</button><button class="pill stepbtn" data-step="2">7.2 HQ asks</button></div>
   <div class="body">
-    <div class="step" data-step="1" data-name="8.1 How sure are you?">
-      <p class="task">HQ asks: "Will Iberia hit its autumn target?" Write one answer for each level, using the phrases below.</p>
+    <div class="step" data-step="1" data-name="7.1 How sure are you?">
+      <p class="task">HQ asks: "Will Iberia hit its autumn target?" Write one answer for each level, using the phrases below. <span class="fact">You know: the target is 42% overall by week 12. After eight weeks, Iberia is at 40%.</span></p>
       <div data-bank="certainty"></div>
       <div class="fill c4">
         <div class="card"><span class="k">Almost certain</span><textarea aria-label="Almost certain" spellcheck="false"></textarea></div>
@@ -509,17 +485,46 @@ h2{font-family:var(--display);font-weight:800;font-size:var(--fs-h);line-height:
       </div>
       <div class="stepfoot"><button class="resetlink" data-reset>Reset</button></div>
     </div>
-    <div class="step" data-step="2" data-name="8.2 HQ asks" data-gatestep>
-      <p class="task">Answer each question in two sentences: give a reason, then go back to your slide. <span>Use the facts and the phrases. Then say each answer aloud.</span></p>
+    <div class="step" data-step="2" data-name="7.2 HQ asks" data-gatestep>
+      <p class="task">Answer each question in two or three sentences: give a reason, then go back to your slide. <span>Use the facts and the phrases. Then say each answer aloud.</span></p>
       <div class="row" style="grid-template-columns:minmax(0,2.3fr) minmax(0,1fr)">
         <div class="fill c3 mid">
           <div class="card"><span class="k">HQ asks</span>Why is HUGO down six points? Is it a product problem or a pricing problem?<span class="fact">You know: two competitors have discounted heavily since September.</span><textarea aria-label="HUGO answer" spellcheck="false"></textarea><span class="model" data-model hidden>It's mainly a pricing problem. Two competitors have discounted heavily since September. Coming back to the slide, the other lines held up well.</span></div>
           <div class="card"><span class="k">HQ asks</span>BOSS Green looks great. Is that just one store?<span class="fact">You know: it's strongest in Marbella and Madrid, and weaker in Lisbon.</span><textarea aria-label="BOSS Green answer" spellcheck="false"></textarea><span class="model" data-model hidden>No. It's strongest in Marbella and Madrid, whereas Lisbon is weaker. Even so, it's our strongest line overall.</span></div>
-          <div class="card"><span class="k">HQ asks</span>Why did BOSS Black dip?<span class="fact">You know: two suit styles arrived three weeks late.</span><textarea aria-label="BOSS Black answer" spellcheck="false"></textarea><span class="model" data-model hidden>As a result of a late delivery: two suit styles arrived three weeks late. Despite that, BOSS Black is still in second place.</span></div>
+          <div class="card"><span class="k">HQ asks</span>Why did BOSS Black dip?<span class="fact">You know: two suit styles arrived three weeks late.</span><textarea aria-label="BOSS Black answer" spellcheck="false"></textarea><span class="model" data-model hidden>It dipped as a result of a late delivery: two suit styles arrived three weeks late. Despite that, BOSS Black is still in second place.</span></div>
         </div>
         <div class="col"><div data-bank="reasons"></div></div>
       </div>
       <div class="stepfoot"><span class="hint" data-wait>Answer all three to see the models.</span><button class="pill go" data-gate hidden>Show models</button><button class="resetlink" data-reset>Reset</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="stage" data-num="8" data-title="Final run">
+  <div class="stage-head"><h2>Same slide. Better.</h2>
+    <div class="headtools"><div class="timer" data-secs="150"><button class="pill" data-t="-60">-1</button><span class="t-disp">02:30</span><button class="pill" data-t="60">+1</button><button class="pill go" data-tgo>Start</button></div></div>
+  </div>
+  <div class="body">
+    <div class="step" data-name="8 Final run">
+      <p class="task">Record yourself again on your phone: two minutes, same slide, same audience. After two minutes, answer one HQ question from 7.2 without looking at your notes. Then listen back and tick what you did. <span>Keep this recording too.</span></p>
+      <div class="row" style="grid-template-columns:minmax(0,1.55fr) minmax(0,1fr)">
+        <div class="slide" data-chart="sell"></div>
+        <div class="col">
+          <div class="ticks">
+            <button class="tick">I opened the call and checked the screen.</button>
+            <button class="tick">I pointed at one line: "I'd like to draw your attention to ..."</button>
+            <button class="tick">I used "from ... to" and "by".</button>
+            <button class="tick">I said "percentage points" correctly.</button>
+            <button class="tick">I ranked the lines: "by far the strongest", "in second place".</button>
+            <button class="tick">I gave one reason: "This is due to ..."</button>
+            <button class="tick">I gave a verdict and closed: "I'll stop sharing there."</button>
+            <button class="tick">I didn't say "very".</button>
+            <button class="tick">I answered HQ with a reason, then went back to the slide.</button>
+          </div>
+          <button class="pill go" data-box="modelPres" style="align-self:flex-start">Show the model presentation</button>
+        </div>
+      </div>
+      <div class="stepfoot"><span class="score" data-tickcount></span><button class="pill rec" data-rec aria-pressed="false">I've recorded my final run</button><button class="resetlink" data-reset>Reset</button></div>
     </div>
   </div>
 </section>
@@ -574,7 +579,7 @@ h2{font-family:var(--display);font-weight:800;font-size:var(--fs-h);line-height:
     <tr><td>fall by</td><td>It fell by six points.</td></tr>
     <tr><td>an increase of</td><td>an increase of 13 points</td></tr>
     <tr><td>a rise in</td><td>a rise in BOSS Orange</td></tr>
-    <tr><td>compared with</td><td>compared with last season</td></tr>
+    <tr><td>compared with</td><td>compared with last year</td></tr>
   </table>
   <h4>Verb or noun</h4>
   <table>
@@ -597,7 +602,7 @@ h2{font-family:var(--display);font-weight:800;font-size:var(--fs-h);line-height:
     <tr><td>in second place</td><td>second</td></tr>
     <tr><td>not far behind</td><td>close to the one before</td></tr>
     <tr><td>in fourth position</td><td>fourth</td></tr>
-    <tr><td>quite a long way behind</td><td>well below the one before</td></tr>
+    <tr><td>in last place</td><td>fifth, the weakest line</td></tr>
   </table>
   <h4>Saying numbers</h4>
   <table>
@@ -615,7 +620,7 @@ h2{font-family:var(--display);font-weight:800;font-size:var(--fs-h);line-height:
     <tr><th>Moment in the call</th><th>Phrase</th></tr>
     <tr><td>Start</td><td>OK, let's get started. Can everybody see my screen?</td></tr>
     <tr><td>Invite questions</td><td>If you have any questions, please feel free to interrupt.</td></tr>
-    <tr><td>Give the structure</td><td>I've divided my update into three main parts.</td></tr>
+    <tr><td>Give the focus</td><td>I'll focus on two lines: BOSS Green and HUGO.</td></tr>
     <tr><td>Point at the chart</td><td>I'd like to draw your attention to the third line from the top.</td></tr>
     <tr><td>Park a question</td><td>I'll come back to that in a moment.</td></tr>
     <tr><td>Finish</td><td>Right, that brings me to the end of my update. I'll stop sharing there.</td></tr>
@@ -626,7 +631,7 @@ h2{font-family:var(--display);font-weight:800;font-size:var(--fs-h);line-height:
   <h3>Model presentation</h3>
   <p>OK, let's get started. Can everybody see my screen? This slide shows full-price sell-through for our five lines in Iberia, for the first eight weeks of autumn/winter, compared with last year.</p>
   <p>I'd like to draw your attention firstly to BOSS Green. Sell-through rose sharply, from 39% to 52%. That's an increase of 13 percentage points, and it's by far our strongest line. This is largely due to demand for trainers.</p>
-  <p>BOSS Black is in second place, at 41%, although it dipped slightly, by three points. BOSS Orange is not far behind, at 38%, and HUGO Blue edged up to 33%.</p>
+  <p>BOSS Black is in second place, at 41%, although it dipped slightly, by three points. BOSS Orange is not far behind, at 38%, and HUGO Blue rose moderately, to 33%.</p>
   <p>The line that worries me is HUGO. It fell by six percentage points, from 35% to 29%. One possible explanation is heavy discounting by our competitors.</p>
   <p>On balance, these results are encouraging. It's likely that we'll meet our autumn target, but we need to act on HUGO. I'll stop sharing there. Any questions?</p>
 </template>
@@ -637,7 +642,7 @@ h2{font-family:var(--display);font-weight:800;font-size:var(--fs-h);line-height:
 
 <script>
 (function(){
-  var KEY='jose-one-slide-selfstudy-v2';
+  var KEY='jose-one-slide-selfstudy-v3';
   var S={};
   try{S=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){S={}}
   ['inputs','choices','texts','ticks','picks','match','sort','checked','scores','gates','rec','sent'].forEach(function(k){if(!S[k])S[k]={}});
