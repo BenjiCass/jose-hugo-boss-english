@@ -1,0 +1,987 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The One-Slide Update</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&display=swap">
+<style>
+/* Self-study version. One screen per step, stage tabs and step tabs for navigation. Typed and chosen answers with Check, explanations after checking, work saved on this laptop, summary to send at the end. BOSS reference palette: monochrome structure, camel for used states, deep camel accent. */
+:root{
+  --bg:#ffffff;--ink:#111111;--muted:#5e5e5e;--line:#e2dbd0;
+  --gold:#c19a6b;--gold-soft:#f1e7da;--panel:#f2eee8;
+  --accent:#7a5528;--accent-soft:#f5eee4;--on-accent:#ffffff;
+  --l1:#4f3416;--l2:#7a5528;--l3:#a8835a;--l4:#d9c3a3;
+  --bar-prev:#b8b2a8;
+  --ok:#2e7d32;--ok-soft:#e3f1e4;--bad:#c62828;--bad-soft:#fbe4e4;
+  --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --body:"Barlow","Helvetica Neue",Arial,sans-serif;
+  --fs-card:clamp(1rem,min(1.65vw,3vh),2.1rem);
+  --fs-h:clamp(1.5rem,min(3vw,5.2vh),3.6rem);
+  --fs-label:clamp(.78rem,min(1vw,1.8vh),1.25rem);
+  --fs-card-lg:clamp(1.2rem,min(2.3vw,4.1vh),3rem);
+  --fs-mid:clamp(.9rem,min(1.3vw,2.35vh),1.65rem);
+  --pill-h:clamp(24px,3.2vh,40px);
+  --gap:clamp(8px,1.5vh,20px);
+  --pad:clamp(10px,1.6vh,24px);
+  --gutter:clamp(16px,2.2vw,40px);
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.35;margin:0;display:flex;flex-direction:column}
+
+nav.tabs{flex:none;display:flex;width:100%;border-bottom:3px solid var(--ink);background:var(--bg)}
+nav.tabs button{flex:1 1 0;min-width:0;font-family:var(--display);font-weight:700;font-size:clamp(.8rem,min(1.1vw,2vh),1.3rem);text-transform:uppercase;letter-spacing:.04em;border:0;border-right:2px solid var(--ink);background:var(--bg);color:var(--ink);padding:clamp(8px,1.3vh,16px) 6px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:background .2s}
+nav.tabs button:last-child{border-right:0}
+nav.tabs button.done{background:var(--gold-soft)}
+nav.tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg)}
+nav.tabs button .n{display:block;font-size:.75em;color:var(--muted);letter-spacing:.1em}
+nav.tabs button[aria-selected="true"] .n{color:var(--gold)}
+button:focus{outline:none}
+button:focus-visible,a:focus-visible,textarea:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+main{flex:1;min-height:0;overflow-y:auto}
+section.stage{height:100%;display:flex;flex-direction:column;gap:var(--gap);padding-inline:var(--gutter);padding-block:clamp(12px,2.2vh,30px)}
+.stage-head{flex:none;display:flex;flex-wrap:wrap;align-items:center;gap:6px 18px}
+h2{font-family:var(--display);font-weight:800;font-size:var(--fs-h);line-height:1;text-transform:uppercase;margin:0}
+.headtools{margin-left:auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+
+.steps{flex:none;display:flex;flex-wrap:wrap;gap:8px}
+.pill{height:var(--pill-h);display:inline-flex;align-items:center;padding:0 .95em;border-radius:999px;border:2px solid var(--ink);font-family:var(--display);font-weight:700;text-transform:uppercase;letter-spacing:.08em;font-size:var(--fs-label);background:var(--bg);color:var(--ink);white-space:nowrap;cursor:pointer}
+.pill:hover{background:var(--gold-soft)}
+.pill.go{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.pill.go:hover{background:var(--ink);border-color:var(--ink)}
+.stepbtn[aria-selected="true"],.stepbtn[aria-selected="true"]:hover{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.stepbtn.locked{opacity:.4;cursor:not-allowed}
+.stepbtn.locked:hover{background:var(--bg)}
+
+.body{flex:1;min-height:0;display:flex;flex-direction:column}
+.step{flex:1;min-height:0;display:flex;flex-direction:column;gap:var(--gap)}
+.task{flex:none;margin:0;font-size:var(--fs-card);font-weight:600;max-width:70em}
+.task span{font-weight:400;color:var(--muted)}
+.stepfoot{flex:none;display:flex;justify-content:flex-end;align-items:center;gap:16px;margin-top:auto;flex-wrap:wrap}
+.stepfoot .hint{margin-right:auto;font-size:var(--fs-label);color:var(--muted)}
+.resetlink{background:none;border:0;padding:2px 0;font-family:var(--body);font-size:var(--fs-label);color:var(--muted);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.resetlink:hover{color:var(--ink)}
+.score{font-family:var(--display);font-weight:800;font-size:calc(var(--fs-label) * 1.3);color:var(--accent)}
+.row{flex:1;min-height:0;display:grid;gap:var(--gap)}
+.col{min-height:0;min-width:0;display:flex;flex-direction:column;gap:var(--gap)}
+
+.fill{flex:1;min-height:0;display:grid;gap:var(--gap);grid-auto-rows:minmax(0,1fr)}
+.c1{grid-template-columns:minmax(0,1fr)}
+.c2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.c3{grid-template-columns:repeat(3,minmax(0,1fr))}
+
+.card{min-width:0;min-height:0;display:flex;flex-direction:column;justify-content:flex-start;gap:.35em;background:var(--panel);border:2px solid var(--ink);padding:var(--pad) clamp(12px,1.2vw,24px);font-size:var(--fs-card);line-height:1.3;text-align:left;font-family:var(--body);color:var(--ink);border-radius:2px;overflow:hidden}
+.k{display:block;font-family:var(--display);font-weight:700;font-size:var(--fs-label);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.fact{font-size:.85em;color:var(--muted)}
+.card textarea,.writebox textarea{flex:1;min-height:2.6em;width:100%;resize:none;border:2px solid var(--line);border-radius:2px;padding:.3em .45em;font-family:var(--body);font-size:.9em;line-height:1.3;background:var(--bg);color:var(--ink)}
+.card textarea:focus{outline:none;border-color:var(--accent)}
+.model{font-size:.85em;color:var(--accent);font-weight:600}
+.model::before{content:"Model: ";font-family:var(--display);text-transform:uppercase;letter-spacing:.08em;font-size:.85em}
+
+/* Home */
+.home .body{display:grid;grid-template-rows:minmax(0,1fr) auto;gap:var(--gap)}
+.homegrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:clamp(16px,3vw,48px);align-items:center;min-height:0}
+.board{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:clamp(2rem,min(6.2vw,9vh),7rem);line-height:.92}
+.board span{display:block}
+.board span:last-child{color:var(--accent)}
+.howto{border:2px solid var(--ink);background:var(--panel);padding:var(--pad) clamp(14px,1.6vw,28px);font-size:var(--fs-mid);min-height:0;overflow:hidden}
+.howto h3{margin:0 0 .4em;font-family:var(--display);font-weight:800;text-transform:uppercase;letter-spacing:.06em;font-size:1.15em}
+.howto ol{margin:0;padding-left:1.3em}
+.howto li+li{margin-top:.3em}
+.howto .again{margin-top:.7em;display:flex;gap:12px;align-items:center}
+.tiles{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:var(--gap)}
+.tile{border:2px solid var(--ink);background:var(--panel);padding:calc(var(--pad) * .8);text-align:left;cursor:pointer;font-family:var(--body);color:var(--ink);border-radius:2px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.tile:hover{background:var(--gold-soft)}
+.tile.done{background:var(--gold-soft)}
+.tile .num{font-family:var(--display);font-weight:800;font-size:clamp(1.4rem,min(2.3vw,4vh),2.8rem);line-height:.9;color:var(--accent)}
+.tile .name{font-family:var(--display);font-weight:700;text-transform:uppercase;font-size:clamp(.85rem,min(1.1vw,2vh),1.4rem);line-height:1.05}
+
+/* Slide chart */
+.slide{flex:1;min-height:0;min-width:0;display:flex;flex-direction:column;gap:calc(var(--gap) * .6);border:2px solid var(--ink);background:var(--bg);padding:var(--pad) clamp(14px,1.6vw,30px)}
+.slide-head{flex:none;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 20px}
+.slide-k{display:block;font-family:var(--display);font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:var(--fs-label);color:var(--muted)}
+.slide-t{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:calc(var(--fs-card) * 1.25);line-height:1}
+.slide-s{font-size:var(--fs-label);color:var(--muted);margin-top:.2em}
+.legend{display:flex;gap:18px;font-family:var(--display);font-weight:700;text-transform:uppercase;letter-spacing:.08em;font-size:var(--fs-label)}
+.legend i{display:inline-block;width:.95em;height:.95em;margin-right:.4em;vertical-align:-.12em}
+.chart{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,max-content) minmax(0,1fr);column-gap:clamp(10px,1.2vw,22px);row-gap:calc(var(--gap) * .5)}
+.chart .cat{align-self:center;font-size:var(--fs-card);font-weight:600;line-height:1.1;min-width:0}
+.chart .cat small{display:block;font-weight:400;color:var(--muted);font-size:.72em}
+.bars{min-height:0;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:3px;padding-right:3.4em;background:linear-gradient(to right,var(--line) 2px,transparent 2px) 0 0/33.333% 100% content-box}
+.bar{flex:1;max-height:2.4em;min-height:0;display:flex;align-items:center}
+.bar i{display:block;height:100%;border-radius:0 4px 4px 0;flex:none}
+.bar b{margin-left:.35em;font-family:var(--display);font-weight:700;font-size:var(--fs-card);font-variant-numeric:tabular-nums;white-space:nowrap}
+.bar.prev i{background:var(--bar-prev)}
+.bar.prev b{color:var(--muted);font-weight:600}
+.bar.cur i{background:var(--ink)}
+.axis{grid-column:2;margin-right:3.4em;display:flex;justify-content:space-between;font-family:var(--display);font-weight:600;font-size:var(--fs-label);color:var(--muted);border-top:2px solid var(--ink);padding-top:2px}
+
+/* Gap and choice items */
+.gaps{flex:1;min-height:0;display:grid;grid-auto-rows:minmax(0,1fr);gap:calc(var(--gap) * .7)}
+.gaps.c2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.gi{border:2px solid var(--ink);background:var(--panel);padding:calc(var(--pad) * .5) clamp(12px,1.3vw,22px);font-size:var(--fs-card);display:flex;flex-direction:column;justify-content:center;gap:.2em;min-height:0;min-width:0;line-height:1.35;overflow:hidden}
+.gi p{margin:0}
+.gi .lead{color:var(--muted)}
+.gi input{font:inherit;font-weight:600;width:6.5em;max-width:100%;border:0;border-bottom:2px solid var(--accent);background:var(--bg);padding:.02em .3em;color:var(--ink)}
+.gi input.long{width:14em}
+.gi input:focus{outline:none;background:var(--accent-soft)}
+.gi input.ok{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.gi input.bad{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
+.choice{display:flex;flex-wrap:wrap;gap:.4em;margin-top:.15em}
+.opt{font:inherit;font-size:.82em;font-weight:600;border:2px solid var(--ink);background:var(--bg);color:var(--ink);padding:0 .45em;border-radius:2px;cursor:pointer}
+.opt:hover{background:var(--gold-soft)}
+.opt.sel{background:var(--gold)}
+.opt.sel.ok{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.opt.sel.bad{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
+.mid > .card,.mid > .gi{font-size:var(--fs-mid)}
+.tight > .gi{line-height:1.25;gap:.1em}
+.why{display:block;font-size:var(--fs-mid);color:var(--accent);line-height:1.3}
+.key{font-weight:600}
+
+/* Worked example */
+.worked{flex:none;border-left:8px solid var(--accent);background:var(--accent-soft);padding:calc(var(--pad) * .8) clamp(14px,1.4vw,24px);font-size:var(--fs-card);line-height:1.5}
+.worked p{margin:0}
+.worked strong{font-family:var(--display);text-transform:uppercase;letter-spacing:.06em;color:var(--accent)}
+
+/* Sort */
+.zh{display:block;font-family:var(--display);font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:calc(var(--fs-label) * 1.3);padding:.4em .7em;color:var(--on-accent);background:var(--ink)}
+.zh small{font-family:var(--body);font-weight:500;text-transform:none;letter-spacing:0;font-size:.8em;opacity:.9;margin-left:.4em}
+.tray{flex:none;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:calc(var(--gap) * .8);min-height:calc(var(--fs-card) * 3.4);padding:calc(var(--gap) * .6);border:2px dashed var(--line)}
+.dcard{background:var(--panel);border:2px solid var(--ink);padding:calc(var(--pad) * .6) clamp(10px,1vw,16px);font-size:var(--fs-card);line-height:1.28;cursor:grab;border-radius:2px;min-width:0;user-select:none}
+.dcard.dragging{opacity:.4}
+.dcard.ok{background:var(--ok-soft);border-color:var(--ok)}
+.dcard.bad{background:var(--bad-soft);border-color:var(--bad);border-style:dashed}
+.zones{flex:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:calc(var(--gap) * .8);align-items:start}
+.zone{min-width:0;display:flex;flex-direction:column;gap:calc(var(--gap) * .6);padding:0 0 calc(var(--gap) * .6);border:2px solid var(--ink);background:var(--bg);min-height:calc(var(--fs-card) * 4)}
+.zone > .dcard{margin:0 calc(var(--gap) * .6)}
+.zone.over,.tray.over{background:var(--gold-soft)}
+
+/* Matching swap */
+.match{flex:1;min-height:0;display:grid;grid-auto-rows:minmax(0,1fr);gap:calc(var(--gap) * .7)}
+.mrow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--gap);min-height:0}
+.mfix,.mtile{min-width:0;min-height:0;display:flex;align-items:center;gap:.5em;border:2px solid var(--ink);padding:calc(var(--pad) * .5) clamp(12px,1.2vw,20px);font-size:var(--fs-card);line-height:1.25;overflow:hidden;border-radius:2px}
+.mfix{background:var(--panel)}
+.mn{font-family:var(--display);font-weight:800;color:var(--accent);min-width:1.3em}
+.mslot{min-width:0;min-height:0;display:flex}
+.mslot.over .mtile{background:var(--gold-soft)}
+.mtile{flex:1;background:var(--bg);cursor:grab;user-select:none}
+.mtile.dragging{opacity:.4}
+.mrow.ok .mtile{background:var(--ok-soft);border-color:var(--ok)}
+.mrow.bad .mtile{border-style:dashed;border-color:var(--bad);color:var(--bad)}
+
+/* Pick and tick lists */
+.pick{cursor:pointer}
+.pick:hover{background:var(--gold-soft)}
+.pick.on{background:var(--gold)}
+.ticks{display:flex;flex-direction:column;border:2px solid var(--ink);min-height:0}
+.tick{display:flex;gap:.6em;align-items:flex-start;text-align:left;border:0;border-bottom:1px solid var(--line);background:var(--bg);font-family:var(--body);font-size:var(--fs-mid);color:var(--ink);padding:calc(var(--pad) * .45) clamp(10px,1vw,16px);cursor:pointer;line-height:1.3}
+.tick:last-child{border-bottom:0}
+.tick::before{content:"";flex:none;width:.95em;height:.95em;margin-top:.15em;border:2px solid var(--ink);border-radius:2px;background:var(--bg)}
+.tick.on::before{background:var(--accent);border-color:var(--accent)}
+.tick:hover{background:var(--gold-soft)}
+
+/* Banks */
+.bank{display:grid;gap:calc(var(--gap) * .8);align-items:start;min-width:0}
+.bank.cert{grid-template-columns:repeat(4,minmax(0,1fr))}
+.bank.one{grid-template-columns:minmax(0,1fr)}
+.level{border:2px solid var(--ink);display:flex;flex-direction:column;min-width:0;background:var(--bg)}
+.level p{margin:0;padding:calc(var(--pad) * .5) clamp(10px,1vw,16px);font-size:var(--fs-mid);border-bottom:1px solid var(--line);line-height:1.3}
+.level p:last-child{border-bottom:0}
+.lv1{border-color:var(--l1)}.lv1 .zh{background:var(--l1)}
+.lv2{border-color:var(--l2)}.lv2 .zh{background:var(--l2)}
+.lv3{border-color:var(--l3)}.lv3 .zh{background:var(--l3)}
+.lv4{border-color:var(--l4)}.lv4 .zh{background:var(--l4);color:var(--ink)}
+.cc2 .zh{background:var(--muted)}
+
+/* Timer */
+.timer{display:flex;align-items:center;gap:6px}
+.timer .t-disp{font-family:var(--display);font-weight:800;font-size:calc(var(--fs-h) * .8);font-variant-numeric:tabular-nums;min-width:3.2em;text-align:center}
+.timer.zero .t-disp{color:var(--bad)}
+
+/* Summary */
+.summary{flex:1;min-height:0;overflow:auto;border:2px solid var(--ink);background:var(--panel);padding:var(--pad) clamp(14px,1.6vw,28px);font-family:var(--body);font-size:var(--fs-mid);line-height:1.45;white-space:pre-wrap;margin:0}
+.copied{font-size:var(--fs-label);color:var(--ok);font-weight:600}
+
+/* Overlay for language boxes and the model presentation */
+.overlay{position:fixed;inset:0;background:rgba(17,17,17,.6);display:flex;align-items:center;justify-content:center;padding:clamp(16px,4vw,60px);z-index:20}
+.overlay .box{background:var(--bg);border:3px solid var(--ink);width:min(1300px,100%);max-height:100%;overflow:auto;padding:clamp(24px,4vh,60px) clamp(22px,4vw,64px);position:relative}
+.overlay .close{position:absolute;top:12px;right:12px}
+.overlay h3{margin:0 0 .5em;font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:var(--fs-h);line-height:1}
+.overlay h4{margin:1em 0 .3em;font-family:var(--display);font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);font-size:calc(var(--fs-card) * 1.05)}
+.overlay p{margin:0 0 .6em;font-size:var(--fs-card);line-height:1.6}
+.overlay table{border-collapse:collapse;width:100%;font-size:var(--fs-mid)}
+.overlay th,.overlay td{text-align:left;padding:.35em .6em;border-bottom:1px solid var(--line);vertical-align:top}
+.overlay th{font-family:var(--display);text-transform:uppercase;letter-spacing:.06em;font-size:var(--fs-label);background:var(--gold-soft)}
+.overlay td:first-child{font-weight:600;white-space:nowrap}
+
+@media (max-width:900px),(max-height:520px){
+  section.stage{height:auto;min-height:100%}
+  .home .body,.homegrid{display:block}
+  .fill,.gaps,.match{grid-auto-rows:auto}
+  .c3,.gaps.c2{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tiles{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .row{grid-template-columns:minmax(0,1fr)!important}
+  .slide{flex:none;min-height:60vh}
+  .tray,.zones,.bank.cert{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<nav class="tabs" role="tablist" id="tabs" aria-label="Stages"></nav>
+
+<main id="main">
+
+<section class="stage home" data-num="Home" data-title="Home">
+  <div class="body">
+    <div class="homegrid">
+      <div class="board"><span>One slide.</span><span>Two minutes.</span></div>
+      <div class="howto">
+        <h3>How this works</h3>
+        <ol>
+          <li>Work through Stages 1 to 9 in order. Stages with more than one task have step tabs, for example 3.1 and 3.2.</li>
+          <li>The line in bold at the top of each step tells you what to do.</li>
+          <li>Type or choose your answers. A Check button appears when you've answered everything. Read the explanations after checking.</li>
+          <li>Some tasks ask you to drag boxes with the mouse.</li>
+          <li>Language box (top right of a stage) shows the rules you need. Open it whenever you're unsure.</li>
+          <li>You'll need your phone to record yourself twice, in Stages 2 and 7.</li>
+          <li>Your work saves automatically in this browser on this laptop. Stage 9 makes a summary to send to Ben.</li>
+        </ol>
+        <div class="again"><button class="pill" id="startAgain">Start again</button><span class="hint" id="againNote"></span></div>
+      </div>
+    </div>
+    <div class="tiles" id="homeTiles"></div>
+  </div>
+</section>
+
+<section class="stage" data-num="1" data-title="Warm-up">
+  <div class="stage-head"><h2>Numbers on screen</h2></div>
+  <div class="body">
+    <div class="step" data-name="1 Warm-up">
+      <p class="task">Answer each question in one or two sentences. <span>There are no right answers.</span></p>
+      <div class="fill c3">
+        <div class="card"><span class="k">Question 1</span>When did you last present numbers in a video call? Who was listening?<textarea aria-label="When did you last present numbers in a video call?" spellcheck="false"></textarea></div>
+        <div class="card"><span class="k">Question 2</span>What's harder about presenting online than in a room?<textarea aria-label="What is harder about presenting online?" spellcheck="false"></textarea></div>
+        <div class="card"><span class="k">Question 3</span>When you show a chart, what do you usually say first?<textarea aria-label="What do you usually say first when you show a chart?" spellcheck="false"></textarea></div>
+      </div>
+      <div class="stepfoot"><button class="resetlink" data-reset>Reset</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="stage" data-num="2" data-title="First run">
+  <div class="stage-head"><h2>Your slide</h2>
+    <div class="headtools"><div class="timer" data-secs="120"><button class="pill" data-t="-60">-1</button><span class="t-disp">02:00</span><button class="pill" data-t="60">+1</button><button class="pill go" data-tgo>Start</button></div></div>
+  </div>
+  <div class="body">
+    <div class="step" data-name="2 First run">
+      <p class="task">Look at the slide for one minute. Then start a voice recording on your phone, press Start, and present it in two minutes. <span>Your audience is the regional director in Germany, who doesn't know Iberia. Keep the recording: you'll send it to Ben.</span></p>
+      <div class="slide" data-chart="sell"></div>
+      <div class="stepfoot"><button class="resetlink" data-reset>Reset</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="stage" data-num="3" data-title="The model">
+  <div class="stage-head"><h2>How a pro says it</h2><div class="headtools"><button class="pill" data-box="box3">Language box</button></div></div>
+  <div class="steps"><button class="pill stepbtn" data-step="1">3.1 Choose the word</button><button class="pill stepbtn" data-step="2" data-after="1">3.2 Steal three</button></div>
+  <div class="body">
+    <div class="step" data-step="1" data-name="3.1 Choose the word" data-typed>
+      <p class="task">Each sentence comes from a presentation of your slide. Choose the correct word, then press Check.</p>
+      <div class="gaps c2 tight">
+        <div class="gi"><p>I'd like to ___ your attention firstly to BOSS Green. <span class="choice" role="group"><button class="opt" data-ok>draw</button><button class="opt">make</button></span></p><span class="why" hidden>We say "draw someone's attention to" something.</span></div>
+        <div class="gi"><p>Sell-through rose sharply, ___ 39% to 52%. <span class="choice" role="group"><button class="opt">since</button><button class="opt" data-ok>from</button></span></p><span class="why" hidden>Use "from ... to" for the start and end points.</span></div>
+        <div class="gi"><p>This is largely ___ demand for trainers. <span class="choice" role="group"><button class="opt" data-ok>due to</button><button class="opt">because</button></span></p><span class="why" hidden>"Due to" + noun. "Because" needs a subject and verb: because demand was strong.</span></div>
+        <div class="gi"><p>HUGO, ___, fell by six percentage points. <span class="choice" role="group"><button class="opt">although</button><button class="opt" data-ok>however</button></span></p><span class="why" hidden>"However" can sit between commas. "Although" needs a full clause after it.</span></div>
+        <div class="gi"><p>BOSS Black dipped slightly, ___ strong demand for suits. <span class="choice" role="group"><button class="opt" data-ok>despite</button><button class="opt">as a result of</button></span></p><span class="why" hidden>It fell even though demand was strong, so it's a contrast: "despite" + noun.</span></div>
+        <div class="gi"><p>On balance, these results are ___. <span class="choice" role="group"><button class="opt">encouraged</button><button class="opt" data-ok>encouraging</button></span></p><span class="why" hidden>"-ing" describes the results. "-ed" describes how people feel: we're encouraged.</span></div>
+        <div class="gi"><p>It's highly ___ that we'll meet our autumn target. <span class="choice" role="group"><button class="opt" data-ok>likely</button><button class="opt">probably</button></span></p><span class="why" hidden>"It's highly likely that ...". "Probably" goes with the verb: we'll probably meet it.</span></div>
+      </div>
+      <div class="stepfoot"><span class="hint" data-wait>Answer every sentence to see Check.</span><span class="score" data-score></span><button class="pill go" data-check hidden>Check</button><button class="pill" data-showkey hidden>Show answers</button><button class="resetlink" data-reset>Reset</button></div>
+    </div>
+    <div class="step" data-step="2" data-name="3.2 Steal three">
+      <p class="task">Choose three sentences you'll use in your next call with HQ. Then write one sentence about your own real sales using one of them.</p>
+      <div class="fill c3 mid" data-pick="3">
+        <button class="card pick"><span class="k">Point at the chart</span>I'd like to draw your attention firstly to BOSS Green.</button>
+        <button class="card pick"><span class="k">Guide the eye</span>If you look at the second bar from the left, you'll see the biggest change.</button>
+        <button class="card pick"><span class="k">Give the movement</span>Sell-through rose sharply, from 39% to 52%.</button>
+        <button class="card pick"><span class="k">Give the reason</span>This is largely due to demand for trainers.</button>
+        <button class="card pick"><span class="k">Give a verdict</span>On balance, these results are encouraging.</button>
+        <button class="card pick"><span class="k">Look ahead</span>It's highly likely that we'll meet our autumn target.</button>
+      </div>
+      <div class="card" style="flex:none"><span class="k">Your sentence about your own sales</span><textarea style="flex:none;height:2.9em" aria-label="Your sentence about your own sales" spellcheck="false"></textarea></div>
+      <div class="stepfoot"><span class="score" data-pickcount></span><button class="resetlink" data-reset>Reset</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="stage" data-num="4" data-title="Movement">
+  <div class="stage-head"><h2>Movement and figures</h2><div class="headtools"><button class="pill" data-box="box4">Language box</button></div></div>
+  <div class="steps"><button class="pill stepbtn" data-step="1">4.1 Prepositions</button><button class="pill stepbtn" data-step="2">4.2 Fast, big, good</button><button class="pill stepbtn" data-step="3">4.3 Say it as a noun</button><button class="pill stepbtn" data-step="4">4.4 Points or per cent</button></div>
+  <div class="body">
+    <div class="step" data-step="1" data-name="4.1 Prepositions" data-typed>
+      <p class="task">Type the missing preposition in each sentence, then press Check.</p>
+      <div class="gaps">
+        <div class="gi"><p>BOSS Black currently stands <input type="text" autocomplete="off" spellcheck="false" data-ans="at" aria-label="Gap 1"> 41%.</p><span class="why" hidden>Use "stand at" for the current level.</span></div>
+        <div class="gi"><p>BOSS Green rose <input type="text" autocomplete="off" spellcheck="false" data-ans="from" aria-label="Gap 2"> 39% <input type="text" autocomplete="off" spellcheck="false" data-ans="to" aria-label="Gap 3"> 52%.</p><span class="why" hidden>"From" the start point, "to" the end point.</span></div>
+        <div class="gi"><p>That's an increase <input type="text" autocomplete="off" spellcheck="false" data-ans="of" aria-label="Gap 4"> 13 percentage points.</p><span class="why" hidden>Noun + "of" + the size: an increase of 13 points.</span></div>
+        <div class="gi"><p>HUGO fell <input type="text" autocomplete="off" spellcheck="false" data-ans="by" aria-label="Gap 5"> six percentage points.</p><span class="why" hidden>Verb + "by" + the size of the change: it fell by six points.</span></div>
+        <div class="gi"><p>There was a slight rise <input type="text" autocomplete="off" spellcheck="false" data-ans="in" aria-label="Gap 6"> BOSS Orange.</p><span class="why" hidden>Noun + "in" + the thing that changed: a rise in BOSS Orange.</span></div>
+        <div class="gi"><p>Compared <input type="text" autocomplete="off" spellcheck="false" data-ans="with|to" aria-label="Gap 7"> last season, BOSS Black is down three points.</p><span class="why" hidden>"Compared with" or "compared to" last season.</span></div>
+      </div>
+      <div class="stepfoot"><span class="hint" data-wait>Fill every gap to see Check.</span><span class="score" data-score></span><button class="pill go" data-check hidden>Check</button><button class="pill" data-showkey hidden>Show answers</button><button class="resetlink" data-reset>Reset</button></div>
+    </div>
+    <div class="step" data-step="2" data-name="4.2 Fast, big, good" data-sort>
+      <p class="task">Drag each word into the right column, then press Check. <span>Each column has three words.</span></p>
+      <div class="tray" data-zone="tray">
+        <div class="dcard" draggable="true" data-cat="news">encouraging</div>
+        <div class="dcard" draggable="true" data-cat="speed">sluggish</div>
+        <div class="dcard" draggable="true" data-cat="size">enormous</div>
+        <div class="dcard" draggable="true" data-cat="speed">rapid</div>
+        <div class="dcard" draggable="true" data-cat="news">disappointing</div>
+        <div class="dcard" draggable="true" data-cat="size">slight</div>
+        <div class="dcard" draggable="true" data-cat="speed">gradual</div>
+        <div class="dcard" draggable="true" data-cat="news">excellent</div>
+        <div class="dcard" draggable="true" data-cat="size">moderate</div>
+      </div>
+      <div class="zones">
+        <div class="zone" data-zone="speed"><span class="zh">How fast <small>rapid, slow</small></span></div>
+        <div class="zone" data-zone="size"><span class="zh">How big <small>large, small</small></span></div>
+        <div class="zone" data-zone="news"><span class="zh">Good or bad news</span></div>
+      </div>
+      <div class="stepfoot"><span class="hint" data-wait>Move every word to see Check.</span><span class="score" data-score></span><button class="pill go" data-check hidden>Check</button><button class="pill" data-showkey hidden>Show answers</button><button class="resetlink" data-reset>Reset</button></div>
+    </div>
+    <div class="step" data-step="3" data-name="4.3 Say it as a noun" data-typed>
+      <p class="task">Rewrite each sentence with a noun. Type one word in each gap, then press Check.</p>
+      <div class="gaps">
+        <div class="gi"><p class="lead">HUGO fell sharply.</p><p>There was a <input type="text" autocomplete="off" spellcheck="false" data-ans="sharp" aria-label="Gap 1"> <input type="text" autocomplete="off" spellcheck="false" data-ans="fall|drop" aria-label="Gap 2"> in HUGO.</p><span class="why" hidden>"Sharply" becomes "sharp", and "fell" becomes "a fall".</span></div>
+        <div class="gi"><p class="lead">BOSS Green rose rapidly.</p><p>There was a <input type="text" autocomplete="off" spellcheck="false" data-ans="rapid" aria-label="Gap 3"> <input type="text" autocomplete="off" spellcheck="false" data-ans="rise|increase" aria-label="Gap 4"> in BOSS Green.</p><span class="why" hidden>"Rapidly" becomes "rapid", and "rose" becomes "a rise".</span></div>
+        <div class="gi"><p class="lead">BOSS Orange improved slightly.</p><p>There was a <input type="text" autocomplete="off" spellcheck="false" data-ans="slight" aria-label="Gap 5"> <input type="text" autocomplete="off" spellcheck="false" data-ans="improvement" aria-label="Gap 6"> in BOSS Orange.</p><span class="why" hidden>"Slightly" becomes "slight", and "improved" becomes "an improvement".</span></div>
+        <div class="gi"><p class="lead">HUGO Blue increased moderately.</p><p>There was a <input type="text" autocomplete="off" spellcheck="false" data-ans="moderate" aria-label="Gap 7"> <input type="text" autocomplete="off" spellcheck="false" data-ans="increase|rise" aria-label="Gap 8"> in HUGO Blue.</p><span class="why" hidden>"Moderately" becomes "moderate", and "increased" becomes "an increase".</span></div>
+      </div>
+      <div class="stepfoot"><span class="hint" data-wait>Fill every gap to see Check.</span><span class="score" data-score></span><button class="pill go" data-check hidden>Check</button><button class="pill" data-showkey hidden>Show answers</button><button class="resetlink" data-reset>Reset</button></div>
+    </div>
+    <div class="step" data-step="4" data-name="4.4 Points or per cent" data-typed>
+      <p class="task">Read the example. Then type the numbers for HUGO and BOSS Green, and press Check.</p>
+      <div class="worked">
+        <p><strong>Example</strong> BOSS Black went from 44% to 41%.</p>
+        <p>44 minus 41 is 3, so it fell by <b>three percentage points</b>. This is the change on the chart.</p>
+        <p>3 divided by 44 is about 0.07, so in relative terms it fell by <b>about 7%</b>. This is how much smaller it is.</p>
+      </div>
+      <div class="gaps c2">
+        <div class="gi"><p>HUGO: 35% to 29%. It fell by <input type="text" autocomplete="off" spellcheck="false" data-ans="6|six" aria-label="Gap 1"> percentage points.</p><span class="why" hidden>35 minus 29 is 6.</span></div>
+        <div class="gi"><p>In relative terms, that's a fall of about <input type="text" autocomplete="off" spellcheck="false" data-ans="17|17%|seventeen" aria-label="Gap 2"> per cent.</p><span class="why" hidden>6 divided by 35 is about 0.17, so about 17%.</span></div>
+        <div class="gi"><p>BOSS Green: 39% to 52%. It rose by <input type="text" autocomplete="off" spellcheck="false" data-ans="13|thirteen" aria-label="Gap 3"> percentage points.</p><span class="why" hidden>52 minus 39 is 13.</span></div>
+        <div class="gi"><p>In relative terms, that's an increase of about <input type="text" autocomplete="off" spellcheck="false" data-ans="33|33%|33.3|thirty three|a third" aria-label="Gap 4"> per cent.</p><span class="why" hidden>13 divided by 39 is about 0.33, so about 33%, or a third.</span></div>
+      </div>
+      <div class="stepfoot"><span class="hint" data-wait>Fill every gap to see Check.</span><span class="score" data-score></span><button class="pill go" data-check hidden>Check</button><button class="pill" data-showkey hidden>Show answers</button><button class="resetlink" data-reset>Reset</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="stage" data-num="5" data-title="Ranking">
+  <div class="stage-head"><h2>Ranking and numbers</h2><div class="headtools"><button class="pill" data-box="box5">Language box</button></div></div>
+  <div class="steps"><button class="pill stepbtn" data-step="1">5.1 Rank the lines</button><button class="pill stepbtn" data-step="2">5.2 Say the numbers</button></div>
+  <div class="body">
+    <div class="step" data-step="1" data-name="5.1 Rank the lines" data-matchstep>
+      <p class="task">Drag the lines on the right so each one matches its place, then press Check. <span>Afterwards, say each row aloud as a full sentence: "BOSS Green is by far the strongest line, at 52%."</span></p>
+      <div class="match" data-match="rank">
+        <div class="mrow" data-key="1"><div class="mfix"><span class="mn">1</span>By far the strongest</div><div class="mslot"><div class="mtile" draggable="true" data-key="1">BOSS Green, 52%</div></div></div>
+        <div class="mrow" data-key="2"><div class="mfix"><span class="mn">2</span>In second place</div><div class="mslot"><div class="mtile" draggable="true" data-key="2">BOSS Black, 41%</div></div></div>
+        <div class="mrow" data-key="3"><div class="mfix"><span class="mn">3</span>Not far behind</div><div class="mslot"><div class="mtile" draggable="true" data-key="3">BOSS Orange, 38%</div></div></div>
+        <div class="mrow" data-key="4"><div class="mfix"><span class="mn">4</span>In fourth position</div><div class="mslot"><div class="mtile" draggable="true" data-key="4">HUGO Blue, 33%</div></div></div>
+        <div class="mrow" data-key="5"><div class="mfix"><span class="mn">5</span>Quite a long way behind</div><div class="mslot"><div class="mtile" draggable="true" data-key="5">HUGO, 29%</div></div></div>
+      </div>
+      <div class="stepfoot"><span class="score" data-score></span><button class="pill go" data-check>Check</button><button class="pill" data-showkey hidden>Show answers</button><button class="resetlink" data-reset>Reset</button></div>
+    </div>
+    <div class="step" data-step="2" data-name="5.2 Say the numbers" data-typed>
+      <p class="task">Write each number in words, the way you would say it in a call. Then press Check and say each one aloud.</p>
+      <div class="gaps c2">
+        <div class="gi"><p><b>52%</b> <input class="long" type="text" autocomplete="off" spellcheck="false" data-ans="fifty two per cent" aria-label="52%"></p><span class="why" hidden>fifty-two per cent. "Per cent" is two words in British English.</span></div>
+        <div class="gi"><p><b>13 percentage points</b> <input class="long" type="text" autocomplete="off" spellcheck="false" data-ans="thirteen percentage points" aria-label="13 percentage points"></p><span class="why" hidden>thirteen percentage points. "Points" stays plural.</span></div>
+        <div class="gi"><p><b>0.5%</b> <input class="long" type="text" autocomplete="off" spellcheck="false" data-ans="nought point five per cent|zero point five per cent|point five per cent|half a per cent" aria-label="0.5%"></p><span class="why" hidden>nought point five per cent, or zero point five per cent. Use "point", never "comma".</span></div>
+        <div class="gi"><p><b>€18.4m</b> <input class="long" type="text" autocomplete="off" spellcheck="false" data-ans="eighteen point four million euros|eighteen point four million euro" aria-label="18.4 million euros"></p><span class="why" hidden>eighteen point four million euros. The number first, then the currency.</span></div>
+        <div class="gi"><p><b>AW26</b> <input class="long" type="text" autocomplete="off" spellcheck="false" data-ans="autumn winter twenty six|autumn winter 2026|autumn winter twenty twenty six" aria-label="AW26"></p><span class="why" hidden>autumn/winter twenty-six. The season, then the year.</span></div>
+        <div class="gi"><p><b>Q3</b> <input class="long" type="text" autocomplete="off" spellcheck="false" data-ans="the third quarter|third quarter|q three" aria-label="Q3"></p><span class="why" hidden>the third quarter. In a sentence: "in the third quarter".</span></div>
+      </div>
+      <div class="stepfoot"><span class="hint" data-wait>Fill every box to see Check.</span><span class="score" data-score></span><button class="pill go" data-check hidden>Check</button><button class="pill" data-showkey hidden>Show answers</button><button class="resetlink" data-reset>Reset</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="stage" data-num="6" data-title="The call">
+  <div class="stage-head"><h2>Run the call</h2><div class="headtools"><button class="pill" data-box="box6">Language box</button></div></div>
+  <div class="steps"><button class="pill stepbtn" data-step="1">6.1 Signposting</button><button class="pill stepbtn" data-step="2">6.2 What do you say?</button></div>
+  <div class="body">
+    <div class="step" data-step="1" data-name="6.1 Signposting" data-matchstep>
+      <p class="task">Drag the endings on the right to complete each sentence, then press Check. <span>Then read all six aloud, in order, as if you were starting and ending a real call.</span></p>
+      <div class="match" data-match="sign">
+        <div class="mrow" data-key="1"><div class="mfix"><span class="mn">1</span>OK, let's get started.</div><div class="mslot"><div class="mtile" draggable="true" data-key="1">Can everybody see my screen?</div></div></div>
+        <div class="mrow" data-key="2"><div class="mfix"><span class="mn">2</span>If you have any questions,</div><div class="mslot"><div class="mtile" draggable="true" data-key="2">please feel free to interrupt.</div></div></div>
+        <div class="mrow" data-key="3"><div class="mfix"><span class="mn">3</span>I've divided my update</div><div class="mslot"><div class="mtile" draggable="true" data-key="3">into three main parts.</div></div></div>
+        <div class="mrow" data-key="4"><div class="mfix"><span class="mn">4</span>I'd like to draw your attention</div><div class="mslot"><div class="mtile" draggable="true" data-key="4">to the second bar from the left.</div></div></div>
+        <div class="mrow" data-key="5"><div class="mfix"><span class="mn">5</span>I'll come back</div><div class="mslot"><div class="mtile" draggable="true" data-key="5">to that in a moment.</div></div></div>
+        <div class="mrow" data-key="6"><div class="mfix"><span class="mn">6</span>Right, that brings me</div><div class="mslot"><div class="mtile" draggable="true" data-key="6">to the end of my update.</div></div></div>
+      </div>
+      <div class="stepfoot"><span class="score" data-score></span><button class="pill go" data-check>Check</button><button class="pill" data-showkey hidden>Show answers</button><button class="resetlink" data-reset>Reset</button></div>
+    </div>
+    <div class="step" data-step="2" data-name="6.2 What do you say?" data-gatestep>
+      <p class="task">Write what you would say in each situation. When all four are done, compare with the models.</p>
+      <div class="fill c2">
+        <div class="card"><span class="k">In the call</span>Someone says: "You're on mute."<textarea aria-label="You're on mute" spellcheck="false"></textarea><span class="model" data-model hidden>Sorry about that. Can you hear me now?</span></div>
+        <div class="card"><span class="k">In the call</span>Your screen freezes.<textarea aria-label="Your screen freezes" spellcheck="false"></textarea><span class="model" data-model hidden>I think my screen has frozen. Let me share it again.</span></div>
+        <div class="card"><span class="k">In the call</span>Two people start talking at the same time.<textarea aria-label="Two people talk at once" spellcheck="false"></textarea><span class="model" data-model hidden>Sorry, go ahead, Anna. Then Mark.</span></div>
+        <div class="card"><span class="k">In the call</span>You can't hear someone clearly.<textarea aria-label="The connection is bad" spellcheck="false"></textarea><span class="model" data-model hidden>Sorry, you're breaking up. Could you say that again?</span></div>
+      </div>
+      <div class="stepfoot"><span class="hint" data-wait>Write all four to see the models.</span><button class="pill go" data-gate hidden>Show models</button><button class="resetlink" data-reset>Reset</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="stage" data-num="7" data-title="Final run">
+  <div class="stage-head"><h2>Same slide. Better.</h2>
+    <div class="headtools"><div class="timer" data-secs="120"><button class="pill" data-t="-60">-1</button><span class="t-disp">02:00</span><button class="pill" data-t="60">+1</button><button class="pill go" data-tgo>Start</button></div></div>
+  </div>
+  <div class="body">
+    <div class="step" data-name="7 Final run">
+      <p class="task">Record yourself again on your phone: two minutes, same slide, same audience. Then listen back and tick what you did. <span>Keep this recording too.</span></p>
+      <div class="row" style="grid-template-columns:minmax(0,1.55fr) minmax(0,1fr)">
+        <div class="slide" data-chart="sell"></div>
+        <div class="col">
+          <div class="ticks">
+            <button class="tick">I opened the call and checked the screen.</button>
+            <button class="tick">I pointed at one bar: "I'd like to draw your attention to ..."</button>
+            <button class="tick">I used "from ... to" and "by".</button>
+            <button class="tick">I said "percentage points" correctly.</button>
+            <button class="tick">I gave one reason: "This is due to ..."</button>
+            <button class="tick">I gave a verdict and closed: "I'll stop sharing there."</button>
+            <button class="tick">I didn't say "very".</button>
+          </div>
+          <button class="pill go" data-box="modelPres" style="align-self:flex-start">Show the model presentation</button>
+        </div>
+      </div>
+      <div class="stepfoot"><span class="score" data-tickcount></span><button class="resetlink" data-reset>Reset</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="stage" data-num="8" data-title="Questions">
+  <div class="stage-head"><h2>The sceptical stakeholder</h2></div>
+  <div class="steps"><button class="pill stepbtn" data-step="1">8.1 How sure are you?</button><button class="pill stepbtn" data-step="2">8.2 HQ asks</button></div>
+  <div class="body">
+    <div class="step" data-step="1" data-name="8.1 How sure are you?">
+      <p class="task">HQ asks: "Will Iberia hit its autumn target?" Write three answers using the phrases below: one almost certain, one possible and one unlikely.</p>
+      <div data-bank="certainty"></div>
+      <div class="fill c3">
+        <div class="card"><span class="k">Almost certain</span><textarea aria-label="Almost certain" spellcheck="false"></textarea></div>
+        <div class="card"><span class="k">Possible</span><textarea aria-label="Possible" spellcheck="false"></textarea></div>
+        <div class="card"><span class="k">Unlikely</span><textarea aria-label="Unlikely" spellcheck="false"></textarea></div>
+      </div>
+      <div class="stepfoot"><button class="resetlink" data-reset>Reset</button></div>
+    </div>
+    <div class="step" data-step="2" data-name="8.2 HQ asks" data-gatestep>
+      <p class="task">Answer each question in two sentences: give a reason, then go back to your slide. <span>Use the facts and the phrases. Then say each answer aloud.</span></p>
+      <div class="row" style="grid-template-columns:minmax(0,2.3fr) minmax(0,1fr)">
+        <div class="fill c3 mid">
+          <div class="card"><span class="k">HQ asks</span>Why is HUGO down six points? Is it a product problem or a pricing problem?<span class="fact">You know: two competitors have discounted heavily since September.</span><textarea aria-label="HUGO answer" spellcheck="false"></textarea><span class="model" data-model hidden>It's mainly a pricing problem. Two competitors have discounted heavily since September. Coming back to the slide, the other lines held up well.</span></div>
+          <div class="card"><span class="k">HQ asks</span>BOSS Green looks great. Is that just one store?<span class="fact">You know: it's strongest in Marbella and Madrid, and weaker in Lisbon.</span><textarea aria-label="BOSS Green answer" spellcheck="false"></textarea><span class="model" data-model hidden>No. It's strongest in Marbella and Madrid, whereas Lisbon is weaker. Even so, it's our strongest line overall.</span></div>
+          <div class="card"><span class="k">HQ asks</span>Why did BOSS Black dip?<span class="fact">You know: two suit styles arrived three weeks late.</span><textarea aria-label="BOSS Black answer" spellcheck="false"></textarea><span class="model" data-model hidden>As a result of a late delivery: two suit styles arrived three weeks late. Despite that, BOSS Black is still in second place.</span></div>
+        </div>
+        <div class="col"><div data-bank="reasons"></div></div>
+      </div>
+      <div class="stepfoot"><span class="hint" data-wait>Answer all three to see the models.</span><button class="pill go" data-gate hidden>Show models</button><button class="resetlink" data-reset>Reset</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="stage" data-num="9" data-title="Send to Ben">
+  <div class="stage-head"><h2>Send to Ben</h2></div>
+  <div class="steps"><button class="pill stepbtn" data-step="1">9.1 Finish it</button><button class="pill stepbtn" data-step="2">9.2 Your summary</button></div>
+  <div class="body">
+    <div class="step" data-step="1" data-name="9.1 Finish it">
+      <p class="task">Finish each sentence.</p>
+      <div class="fill c3">
+        <div class="card"><span class="k">Sentence 1</span>The phrase I'll use in my next call is ...<textarea aria-label="The phrase I'll use in my next call is" spellcheck="false"></textarea></div>
+        <div class="card"><span class="k">Sentence 2</span>The number I need to say more carefully is ...<textarea aria-label="The number I need to say more carefully is" spellcheck="false"></textarea></div>
+        <div class="card"><span class="k">Sentence 3</span>In our next class, I want to work on ...<textarea aria-label="In our next class, I want to work on" spellcheck="false"></textarea></div>
+      </div>
+      <div class="stepfoot"><button class="resetlink" data-reset>Reset</button></div>
+    </div>
+    <div class="step" data-step="2" data-name="9.2 Your summary">
+      <p class="task">Copy your summary and send it to Ben by WhatsApp or email, together with your two voice recordings from Stages 2 and 7.</p>
+      <pre class="summary" id="summary"></pre>
+      <div class="stepfoot"><span class="copied" id="copied"></span><button class="pill" id="dl">Download as a file</button><button class="pill go" id="copy">Copy summary</button></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- Language boxes and the model presentation, shown in the overlay -->
+<template id="box3">
+  <h3>Language box</h3>
+  <table>
+    <tr><th>Word</th><th>How to use it</th><th>Example</th></tr>
+    <tr><td>due to</td><td>a reason, + noun</td><td>due to demand for trainers</td></tr>
+    <tr><td>because</td><td>a reason, + subject and verb</td><td>because demand was strong</td></tr>
+    <tr><td>however</td><td>a contrast, at the start or between commas</td><td>HUGO, however, fell.</td></tr>
+    <tr><td>although</td><td>a contrast, + subject and verb</td><td>although HUGO fell</td></tr>
+    <tr><td>despite</td><td>a contrast, + noun</td><td>despite strong demand</td></tr>
+    <tr><td>as a result of</td><td>a cause, + noun</td><td>as a result of late deliveries</td></tr>
+    <tr><td>encouraging</td><td>describes the results</td><td>The results are encouraging.</td></tr>
+    <tr><td>encouraged</td><td>describes how people feel</td><td>We're encouraged.</td></tr>
+    <tr><td>likely</td><td>it's (highly) likely that ...</td><td>It's highly likely that we'll meet it.</td></tr>
+    <tr><td>probably</td><td>goes with the verb</td><td>We'll probably meet it.</td></tr>
+  </table>
+</template>
+<template id="box4">
+  <h3>Language box</h3>
+  <h4>Prepositions with figures</h4>
+  <table>
+    <tr><th>Pattern</th><th>Example</th></tr>
+    <tr><td>stand at</td><td>BOSS Black stands at 41%.</td></tr>
+    <tr><td>rise from ... to ...</td><td>It rose from 39% to 52%.</td></tr>
+    <tr><td>fall by</td><td>It fell by six points.</td></tr>
+    <tr><td>an increase of</td><td>an increase of 13 points</td></tr>
+    <tr><td>a rise in</td><td>a rise in BOSS Orange</td></tr>
+    <tr><td>compared with</td><td>compared with last season</td></tr>
+  </table>
+  <h4>Verb or noun</h4>
+  <table>
+    <tr><th>Verb + adverb</th><th>Noun + adjective</th></tr>
+    <tr><td>fell sharply</td><td>a sharp fall in ...</td></tr>
+    <tr><td>rose rapidly</td><td>a rapid rise in ...</td></tr>
+    <tr><td>improved slightly</td><td>a slight improvement in ...</td></tr>
+    <tr><td>increased moderately</td><td>a moderate increase in ...</td></tr>
+  </table>
+  <h4>Points or per cent</h4>
+  <p>Percentage points: the difference between two percentages on the chart. From 44% to 41% is a fall of three percentage points.</p>
+  <p>Per cent: the relative change. Three divided by 44 is about 7%, so it is about 7% smaller.</p>
+</template>
+<template id="box5">
+  <h3>Language box</h3>
+  <h4>Ranking</h4>
+  <table>
+    <tr><th>Phrase</th><th>Meaning</th></tr>
+    <tr><td>by far the strongest</td><td>first, with a big gap to the next</td></tr>
+    <tr><td>in second place</td><td>second</td></tr>
+    <tr><td>not far behind</td><td>close to the one before</td></tr>
+    <tr><td>in fourth position</td><td>fourth</td></tr>
+    <tr><td>quite a long way behind</td><td>well below the one before</td></tr>
+  </table>
+  <h4>Saying numbers</h4>
+  <table>
+    <tr><th>Written</th><th>Said</th></tr>
+    <tr><td>37%</td><td>thirty-seven per cent</td></tr>
+    <tr><td>2.5%</td><td>two point five per cent</td></tr>
+    <tr><td>€3.2m</td><td>three point two million euros</td></tr>
+    <tr><td>Q1</td><td>the first quarter</td></tr>
+    <tr><td>SS27</td><td>spring/summer twenty-seven</td></tr>
+  </table>
+</template>
+<template id="box6">
+  <h3>Language box</h3>
+  <table>
+    <tr><th>Moment in the call</th><th>Phrase</th></tr>
+    <tr><td>Start</td><td>OK, let's get started. Can everybody see my screen?</td></tr>
+    <tr><td>Invite questions</td><td>If you have any questions, please feel free to interrupt.</td></tr>
+    <tr><td>Give the structure</td><td>I've divided my update into three main parts.</td></tr>
+    <tr><td>Point at the chart</td><td>I'd like to draw your attention to the second bar from the left.</td></tr>
+    <tr><td>Park a question</td><td>I'll come back to that in a moment.</td></tr>
+    <tr><td>Finish</td><td>Right, that brings me to the end of my update. I'll stop sharing there.</td></tr>
+    <tr><td>Technical problems</td><td>Sorry, you're breaking up. I think my screen has frozen.</td></tr>
+  </table>
+</template>
+<template id="modelPres">
+  <h3>Model presentation</h3>
+  <p>OK, let's get started. Can everybody see my screen? This slide shows full-price sell-through for our five lines in Iberia, for the first eight weeks of autumn/winter, compared with last year.</p>
+  <p>I'd like to draw your attention firstly to BOSS Green. Sell-through rose sharply, from 39% to 52%. That's an increase of 13 percentage points, and it's by far our strongest line. This is largely due to demand for trainers.</p>
+  <p>BOSS Black is in second place, at 41%, although it dipped slightly, by three points. BOSS Orange is not far behind, at 38%, and HUGO Blue edged up to 33%.</p>
+  <p>The line that worries me is HUGO. It fell by six percentage points, from 35% to 29%. One possible explanation is heavy discounting by our competitors.</p>
+  <p>On balance, these results are encouraging. It's likely that we'll meet our autumn target, but we need to act on HUGO. I'll stop sharing there. Any questions?</p>
+</template>
+
+<div class="overlay" id="overlay" hidden role="dialog" aria-modal="true">
+  <div class="box"><button class="pill close" id="ovClose">Close</button><div id="ovBody"></div></div>
+</div>
+
+<script>
+(function(){
+  var KEY='jose-one-slide-selfstudy-v1';
+  var S={};
+  try{S=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){S={}}
+  ['inputs','choices','texts','ticks','picks','match','sort','checked','scores','gates','stagesDone'].forEach(function(k){if(!S[k])S[k]={}});
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+
+  var BANKS={
+    certainty:{cls:'cert',groups:[
+      {cls:'lv1',label:'Almost certain',items:["It's highly likely that ...","We're almost certain to ..."]},
+      {cls:'lv2',label:'Probable',items:["We're likely to ...","There's a good chance that ..."]},
+      {cls:'lv3',label:'Possible',items:["It might be that ...","There's a 50/50 chance that ..."]},
+      {cls:'lv4',label:'Unlikely',items:["We're unlikely to ...","It's highly unlikely that ..."]}
+    ]},
+    reasons:{cls:'one',groups:[
+      {cls:'',label:'Reason',items:["It's mainly due to ...","As a result of ...","This has led to ..."]},
+      {cls:'cc2',label:'Contrast',items:["Whereas ...","Despite ...","Even so, ..."]},
+      {cls:'',label:'Back to the slide',items:["Coming back to the slide, ..."]}
+    ]}
+  };
+  document.querySelectorAll('[data-bank]').forEach(function(host){
+    var bank=BANKS[host.dataset.bank],wrap=document.createElement('div');wrap.className='bank '+bank.cls;
+    bank.groups.forEach(function(g){
+      var lv=document.createElement('div');lv.className='level'+(g.cls?' '+g.cls:'');
+      var h=document.createElement('span');h.className='zh';h.textContent=g.label;lv.appendChild(h);
+      g.items.forEach(function(t){var p=document.createElement('p');p.textContent=t;lv.appendChild(p)});
+      wrap.appendChild(lv);
+    });
+    host.appendChild(wrap);
+  });
+
+  // Slide chart (invented practice figures)
+  var CHARTS={sell:{k:'Iberia, autumn/winter 2026',t:'Full-price sell-through by line',s:'First eight weeks, AW26 compared with AW25. Invented figures for practice.',max:60,ticks:['0%','20%','40%','60%'],
+    rows:[['BOSS Black','tailoring',44,41],['BOSS Orange','casual',37,38],['BOSS Green','athleisure, trainers',39,52],['HUGO','',35,29],['HUGO Blue','denim',30,33]]}};
+  document.querySelectorAll('[data-chart]').forEach(function(host){
+    var d=CHARTS[host.dataset.chart],alt=[];
+    var head=document.createElement('div');head.className='slide-head';
+    var hl=document.createElement('div');hl.innerHTML='<span class="slide-k"></span><div class="slide-t"></div><div class="slide-s"></div>';
+    hl.querySelector('.slide-k').textContent=d.k;hl.querySelector('.slide-t').textContent=d.t;hl.querySelector('.slide-s').textContent=d.s;
+    head.appendChild(hl);
+    var lg=document.createElement('div');lg.className='legend';
+    [['var(--bar-prev)','AW25'],['var(--ink)','AW26']].forEach(function(l){var sp=document.createElement('span'),i=document.createElement('i');i.style.background=l[0];sp.appendChild(i);sp.appendChild(document.createTextNode(l[1]));lg.appendChild(sp)});
+    head.appendChild(lg);host.appendChild(head);
+    var ch=document.createElement('div');ch.className='chart';ch.setAttribute('role','img');
+    ch.style.gridTemplateRows='repeat('+d.rows.length+',minmax(0,1fr)) auto';
+    d.rows.forEach(function(r){
+      var cat=document.createElement('div');cat.className='cat';cat.textContent=r[0];
+      if(r[1]){var sm=document.createElement('small');sm.textContent=r[1];cat.appendChild(sm)}
+      ch.appendChild(cat);
+      var bars=document.createElement('div');bars.className='bars';
+      [['prev',r[2]],['cur',r[3]]].forEach(function(p){var bar=document.createElement('div');bar.className='bar '+p[0];
+        var i=document.createElement('i');i.style.width=(p[1]/d.max*100)+'%';var b=document.createElement('b');b.textContent=p[1]+'%';
+        bar.appendChild(i);bar.appendChild(b);bars.appendChild(bar)});
+      ch.appendChild(bars);alt.push(r[0]+': AW25 '+r[2]+'%, AW26 '+r[3]+'%');
+    });
+    var ax=document.createElement('div');ax.className='axis';
+    d.ticks.forEach(function(t){var s=document.createElement('span');s.textContent=t;ax.appendChild(s)});
+    ch.appendChild(ax);ch.setAttribute('aria-label',d.t+'. '+alt.join('. ')+'.');
+    host.appendChild(ch);
+  });
+
+  // Stable ids for everything that saves
+  function ids(sel,prefix){document.querySelectorAll(sel).forEach(function(el,i){el.dataset.sid=prefix+i})}
+  ids('input[data-ans]','i');ids('.choice','c');ids('textarea','t');ids('.tick','k');ids('.pick','p');ids('.dcard','d');
+
+  var stages=[].slice.call(document.querySelectorAll('section.stage'));
+  var tabs=document.getElementById('tabs'),main=document.getElementById('main'),homeTiles=document.getElementById('homeTiles'),current=0;
+  function stepKey(step){var st=step.closest('section.stage');return stages.indexOf(st)+'-'+(step.dataset.step||'1')}
+  function scopeOf(el){return el.closest('.step')}
+
+  // ---------- Typed gaps and choices ----------
+  function norm(v){return v.toLowerCase().replace(/[‘’]/g,"'").replace(/[-\/]/g,' ').replace(/percent\b/g,'per cent').replace(/[.,!]+$/,'').replace(/\s+/g,' ').trim()}
+  function typedItems(step){return [].slice.call(step.querySelectorAll('input[data-ans],.choice'))}
+  function filled(el){return el.tagName==='INPUT'?!!el.value.trim():!!el.querySelector('.opt.sel')}
+  function correct(el){
+    if(el.tagName==='INPUT'){var v=norm(el.value);return el.dataset.ans.split('|').some(function(a){return norm(a)===v})}
+    var s=el.querySelector('.opt.sel');return !!(s&&s.hasAttribute('data-ok'));
+  }
+  function refreshTyped(step){
+    var all=typedItems(step).every(filled),chk=step.querySelector('[data-check]'),wait=step.querySelector('[data-wait]');
+    if(chk)chk.hidden=!all;if(wait)wait.hidden=all;
+  }
+  function clearMarks(step){
+    step.querySelectorAll('input.ok,input.bad,.opt.ok,.opt.bad').forEach(function(x){x.classList.remove('ok','bad')});
+    step.querySelectorAll('.why').forEach(function(w){w.hidden=true});
+    var sc=step.querySelector('[data-score]');if(sc)sc.textContent='';
+    var sk=step.querySelector('[data-showkey]');if(sk)sk.hidden=true;
+    delete S.checked[stepKey(step)];
+  }
+  function checkTyped(step){
+    var items=typedItems(step),r=0;
+    items.forEach(function(el){var ok=correct(el);var t=el.tagName==='INPUT'?el:el.querySelector('.opt.sel');t.classList.toggle('ok',ok);t.classList.toggle('bad',!ok);if(ok)r++});
+    step.querySelectorAll('.why').forEach(function(w){w.hidden=false});
+    finishCheck(step,r,items.length);
+  }
+  function finishCheck(step,r,n){
+    var sc=step.querySelector('[data-score]');if(sc)sc.textContent=r+' of '+n;
+    var sk=step.querySelector('[data-showkey]');if(sk)sk.hidden=r===n;
+    var k=stepKey(step);S.checked[k]=true;S.scores[k]=r+' of '+n;save();unlockSteps();markDone();
+  }
+  document.querySelectorAll('[data-typed]').forEach(function(step){
+    step.querySelectorAll('input[data-ans]').forEach(function(inp){
+      if(S.inputs[inp.dataset.sid])inp.value=S.inputs[inp.dataset.sid];
+      inp.addEventListener('input',function(){S.inputs[inp.dataset.sid]=inp.value;inp.classList.remove('ok','bad');clearMarks(step);refreshTyped(step);save()});
+    });
+    step.querySelectorAll('.choice').forEach(function(ch){
+      var opts=[].slice.call(ch.querySelectorAll('.opt'));
+      if(S.choices[ch.dataset.sid]!=null&&opts[S.choices[ch.dataset.sid]])opts[S.choices[ch.dataset.sid]].classList.add('sel');
+      opts.forEach(function(o,i){o.addEventListener('click',function(){opts.forEach(function(x){x.classList.remove('sel','ok','bad')});o.classList.add('sel');S.choices[ch.dataset.sid]=i;clearMarks(step);refreshTyped(step);save()})});
+    });
+    step.querySelector('[data-check]').addEventListener('click',function(){checkTyped(step)});
+    step.querySelector('[data-showkey]').addEventListener('click',function(){
+      step.querySelectorAll('input[data-ans]').forEach(function(inp){if(!correct(inp)){inp.value=inp.dataset.ans.split('|')[0];S.inputs[inp.dataset.sid]=inp.value}});
+      step.querySelectorAll('.choice').forEach(function(ch){var opts=[].slice.call(ch.querySelectorAll('.opt'));opts.forEach(function(o,i){o.classList.remove('sel','ok','bad');if(o.hasAttribute('data-ok')){o.classList.add('sel');S.choices[ch.dataset.sid]=i}})});
+      checkTypedKeepScore(step);
+    });
+    refreshTyped(step);
+  });
+  function checkTypedKeepScore(step){
+    var prev=S.scores[stepKey(step)];checkTyped(step);if(prev){S.scores[stepKey(step)]=prev;save();step.querySelector('[data-score]').textContent=prev+' (first try)'}
+  }
+
+  // ---------- Sort ----------
+  var dragged=null;
+  document.querySelectorAll('.dcard').forEach(function(c){
+    c.addEventListener('dragstart',function(e){dragged=c;c.classList.add('dragging');try{e.dataTransfer.setData('text/plain','x');e.dataTransfer.effectAllowed='move'}catch(err){}});
+    c.addEventListener('dragend',function(){c.classList.remove('dragging');dragged=null;document.querySelectorAll('.over').forEach(function(z){z.classList.remove('over')})});
+  });
+  document.querySelectorAll('[data-sort]').forEach(function(step){
+    var tray=step.querySelector('[data-zone="tray"]'),orig=[].slice.call(tray.children);
+    function zone(n){return step.querySelector('[data-zone="'+n+'"]')}
+    function refresh(){var done=!tray.querySelector('.dcard');step.querySelector('[data-check]').hidden=!done;step.querySelector('[data-wait]').hidden=done}
+    function store(){step.querySelectorAll('.dcard').forEach(function(c){S.sort[c.dataset.sid]=c.parentNode.dataset.zone});save()}
+    step.querySelectorAll('.dcard').forEach(function(c){var z=S.sort[c.dataset.sid];if(z&&z!=='tray'&&zone(z))zone(z).appendChild(c)});
+    step.querySelectorAll('[data-zone]').forEach(function(z){
+      z.addEventListener('dragover',function(e){if(!dragged||!step.contains(dragged))return;e.preventDefault();z.classList.add('over')});
+      z.addEventListener('dragleave',function(e){if(!z.contains(e.relatedTarget))z.classList.remove('over')});
+      z.addEventListener('drop',function(e){if(!dragged||!step.contains(dragged))return;e.preventDefault();z.classList.remove('over');z.appendChild(dragged);
+        step.querySelectorAll('.dcard').forEach(function(c){c.classList.remove('ok','bad')});clearMarks(step);store();refresh()});
+    });
+    function check(){var cards=[].slice.call(step.querySelectorAll('.dcard')),r=0;
+      cards.forEach(function(c){var ok=c.parentNode.dataset.zone===c.dataset.cat;c.classList.toggle('ok',ok);c.classList.toggle('bad',!ok);if(ok)r++});
+      finishCheck(step,r,cards.length)}
+    step.querySelector('[data-check]').addEventListener('click',check);
+    step.querySelector('[data-showkey]').addEventListener('click',function(){var prev=S.scores[stepKey(step)];
+      step.querySelectorAll('.dcard').forEach(function(c){zone(c.dataset.cat).appendChild(c)});store();check();
+      if(prev){S.scores[stepKey(step)]=prev;save();step.querySelector('[data-score]').textContent=prev+' (first try)'}});
+    step._reset=function(){orig.forEach(function(c){c.classList.remove('ok','bad');tray.appendChild(c)});store();refresh()};
+    step._recheck=check;
+    refresh();
+  });
+
+  // ---------- Matching swap ----------
+  function arrange(m,keys){var slots=[].slice.call(m.querySelectorAll('.mslot'));
+    var tiles={};m.querySelectorAll('.mtile').forEach(function(t){tiles[t.dataset.key]=t});
+    keys.forEach(function(k,i){slots[i].appendChild(tiles[k])})}
+  function order(m){return [].slice.call(m.querySelectorAll('.mslot')).map(function(s){return s.firstElementChild.dataset.key})}
+  function shuffleMatch(m){
+    var rows=[].slice.call(m.querySelectorAll('.mrow')).map(function(r){return r.dataset.key}),o,ok=false,t=0;
+    while(!ok&&t<200){o=rows.slice();for(var i=o.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var x=o[i];o[i]=o[j];o[j]=x}ok=o.every(function(k,i){return k!==rows[i]});t++}
+    if(!ok)o=rows.slice(1).concat(rows[0]);arrange(m,o);
+  }
+  document.querySelectorAll('[data-matchstep]').forEach(function(step){
+    var m=step.querySelector('[data-match]'),id=m.dataset.match,drag=null;
+    if(S.match[id])arrange(m,S.match[id]);else{shuffleMatch(m);S.match[id]=order(m);save()}
+    function unmark(){m.querySelectorAll('.mrow').forEach(function(r){r.classList.remove('ok','bad')});clearMarks(step)}
+    m.querySelectorAll('.mtile').forEach(function(t){
+      t.addEventListener('dragstart',function(e){drag=t;t.classList.add('dragging');try{e.dataTransfer.setData('text/plain','x');e.dataTransfer.effectAllowed='move'}catch(err){}});
+      t.addEventListener('dragend',function(){t.classList.remove('dragging');drag=null;m.querySelectorAll('.mslot.over').forEach(function(s){s.classList.remove('over')})});
+    });
+    m.querySelectorAll('.mslot').forEach(function(s){
+      s.addEventListener('dragover',function(e){if(!drag)return;e.preventDefault();s.classList.add('over')});
+      s.addEventListener('dragleave',function(e){if(!s.contains(e.relatedTarget))s.classList.remove('over')});
+      s.addEventListener('drop',function(e){if(!drag)return;e.preventDefault();s.classList.remove('over');
+        var other=s.firstElementChild,from=drag.parentNode;if(other===drag)return;
+        s.appendChild(drag);from.appendChild(other);unmark();S.match[id]=order(m);save()});
+    });
+    function check(){var rows=[].slice.call(m.querySelectorAll('.mrow')),r=0;
+      rows.forEach(function(row){var ok=row.querySelector('.mtile').dataset.key===row.dataset.key;row.classList.toggle('ok',ok);row.classList.toggle('bad',!ok);if(ok)r++});
+      finishCheck(step,r,rows.length)}
+    step.querySelector('[data-check]').addEventListener('click',check);
+    step.querySelector('[data-showkey]').addEventListener('click',function(){var prev=S.scores[stepKey(step)];
+      arrange(m,[].slice.call(m.querySelectorAll('.mrow')).map(function(r){return r.dataset.key}));S.match[id]=order(m);check();
+      if(prev){S.scores[stepKey(step)]=prev;save();step.querySelector('[data-score]').textContent=prev+' (first try)'}});
+    step._reset=function(){unmark();shuffleMatch(m);S.match[id]=order(m);save()};
+    step._recheck=check;
+  });
+
+  // ---------- Text answers, ticks, picks, gates ----------
+  document.querySelectorAll('textarea').forEach(function(t){
+    if(S.texts[t.dataset.sid])t.value=S.texts[t.dataset.sid];
+    t.addEventListener('input',function(){S.texts[t.dataset.sid]=t.value;save();var st=scopeOf(t);if(st&&st.hasAttribute('data-gatestep'))refreshGate(st);markDone()});
+  });
+  function refreshTicks(scope){var n=scope.querySelectorAll('.tick.on').length,all=scope.querySelectorAll('.tick').length,out=scope.querySelector('[data-tickcount]');if(out)out.textContent=n+' of '+all+' ticked'}
+  document.querySelectorAll('.tick').forEach(function(b){
+    if(S.ticks[b.dataset.sid])b.classList.add('on');
+    b.addEventListener('click',function(){b.classList.toggle('on');S.ticks[b.dataset.sid]=b.classList.contains('on');save();refreshTicks(scopeOf(b));markDone()});
+  });
+  document.querySelectorAll('.step').forEach(function(s){if(s.querySelector('.tick'))refreshTicks(s)});
+  document.querySelectorAll('[data-pick]').forEach(function(box){
+    var max=+box.dataset.pick,step=scopeOf(box),out=step.querySelector('[data-pickcount]');
+    function count(){var n=box.querySelectorAll('.pick.on').length;if(out)out.textContent=n+' of '+max+' chosen';return n}
+    box.querySelectorAll('.pick').forEach(function(p){
+      if(S.picks[p.dataset.sid])p.classList.add('on');
+      p.addEventListener('click',function(){if(!p.classList.contains('on')&&count()>=max)return;p.classList.toggle('on');S.picks[p.dataset.sid]=p.classList.contains('on');save();count();markDone()});
+    });
+    count();
+  });
+  function refreshGate(step){
+    var all=[].slice.call(step.querySelectorAll('textarea')).every(function(t){return t.value.trim()});
+    var g=step.querySelector('[data-gate]'),w=step.querySelector('[data-wait]'),open=!!S.gates[stepKey(step)];
+    g.hidden=!all||open;w.hidden=all||open;
+    step.querySelectorAll('[data-model]').forEach(function(m){m.hidden=!open});
+  }
+  document.querySelectorAll('[data-gatestep]').forEach(function(step){
+    step.querySelector('[data-gate]').addEventListener('click',function(){S.gates[stepKey(step)]=true;save();refreshGate(step)});
+    refreshGate(step);
+  });
+
+  // ---------- Step reset ----------
+  document.querySelectorAll('[data-reset]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var step=scopeOf(btn);
+      step.querySelectorAll('input[data-ans]').forEach(function(i){i.value='';i.classList.remove('ok','bad');delete S.inputs[i.dataset.sid]});
+      step.querySelectorAll('.choice').forEach(function(c){c.querySelectorAll('.opt').forEach(function(o){o.classList.remove('sel','ok','bad')});delete S.choices[c.dataset.sid]});
+      step.querySelectorAll('textarea').forEach(function(t){t.value='';delete S.texts[t.dataset.sid]});
+      step.querySelectorAll('.tick').forEach(function(t){t.classList.remove('on');delete S.ticks[t.dataset.sid]});
+      step.querySelectorAll('.pick').forEach(function(p){p.classList.remove('on');delete S.picks[p.dataset.sid]});
+      delete S.gates[stepKey(step)];delete S.scores[stepKey(step)];
+      clearMarks(step);
+      if(step._reset)step._reset();
+      if(step.hasAttribute('data-typed'))refreshTyped(step);
+      if(step.hasAttribute('data-gatestep'))refreshGate(step);
+      if(step.querySelector('.tick'))refreshTicks(step);
+      var pc=step.querySelector('[data-pickcount]');if(pc)pc.textContent='0 of 3 chosen';
+      save();unlockSteps();markDone();
+    });
+  });
+
+  // ---------- Timers ----------
+  document.querySelectorAll('.timer').forEach(function(tm){
+    var start=+tm.dataset.secs,secs=start,run=null,disp=tm.querySelector('.t-disp'),go=tm.querySelector('[data-tgo]');
+    function draw(){var m=Math.floor(secs/60),s=secs%60;disp.textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;tm.classList.toggle('zero',secs===0)}
+    tm.querySelectorAll('[data-t]').forEach(function(b){b.addEventListener('click',function(){secs=Math.max(0,secs+parseInt(b.dataset.t,10));draw()})});
+    go.addEventListener('click',function(){
+      if(run){clearInterval(run);run=null;go.textContent='Start';return}
+      if(secs===0)secs=start;
+      go.textContent='Pause';run=setInterval(function(){if(secs>0){secs--;draw()}if(secs===0){clearInterval(run);run=null;go.textContent='Start'}},1000);
+    });
+    draw();
+  });
+
+  // ---------- Overlay ----------
+  var ov=document.getElementById('overlay'),ovBody=document.getElementById('ovBody');
+  document.querySelectorAll('[data-box]').forEach(function(b){
+    b.addEventListener('click',function(){ovBody.innerHTML='';ovBody.appendChild(document.getElementById(b.dataset.box).content.cloneNode(true));ov.hidden=false;document.getElementById('ovClose').focus()});
+  });
+  function closeOv(){ov.hidden=true}
+  document.getElementById('ovClose').addEventListener('click',closeOv);
+  ov.addEventListener('click',function(e){if(e.target===ov)closeOv()});
+
+  // ---------- Stages, steps, locks ----------
+  stages.forEach(function(s,i){
+    var b=document.createElement('button');b.type='button';b.setAttribute('role','tab');
+    var n=document.createElement('span');n.className='n';n.textContent=i===0?'Home':'Stage '+s.dataset.num;b.appendChild(n);
+    if(i>0){var t=document.createElement('span');t.className='t';t.textContent=s.dataset.title;b.appendChild(t)}
+    b.addEventListener('click',function(){show(i);b.blur()});tabs.appendChild(b);
+    if(i>0){var tile=document.createElement('button');tile.type='button';tile.className='tile';tile.dataset.stage=i;
+      tile.innerHTML='<span class="num"></span><span class="name"></span>';
+      tile.querySelector('.num').textContent=s.dataset.num;tile.querySelector('.name').textContent=s.dataset.title;
+      tile.addEventListener('click',function(){show(i)});homeTiles.appendChild(tile)}
+    var btns=s.querySelectorAll('.stepbtn'),steps=s.querySelectorAll('.step');
+    s._pick=function(k){
+      btns.forEach(function(x){x.setAttribute('aria-selected',x.dataset.step===k?'true':'false')});
+      steps.forEach(function(x){x.hidden=x.dataset.step!==k});
+      if(k==='2'&&s.querySelector('#summary'))buildSummary();
+    };
+    btns.forEach(function(x){x.addEventListener('click',function(){if(x.classList.contains('locked'))return;s._pick(x.dataset.step);x.blur()})});
+    if(btns.length)s._pick('1');
+  });
+  function unlockSteps(){
+    document.querySelectorAll('.stepbtn[data-after]').forEach(function(b){
+      var s=b.closest('section.stage'),k=stages.indexOf(s)+'-'+b.dataset.after,open=!!S.checked[k];
+      b.classList.toggle('locked',!open);b.title=open?'':'Check '+s.dataset.num+'.'+b.dataset.after+' first';
+    });
+  }
+  function stageDone(s){
+    var steps=[].slice.call(s.querySelectorAll('.step'));if(!steps.length)return false;
+    return steps.every(function(st){
+      var k=stepKey(st);
+      if(st.hasAttribute('data-typed')||st.hasAttribute('data-sort')||st.hasAttribute('data-matchstep'))return !!S.checked[k];
+      var ta=[].slice.call(st.querySelectorAll('textarea'));if(ta.length)return ta.some(function(t){return t.value.trim()});
+      if(st.querySelector('.tick'))return !!st.querySelector('.tick.on');
+      return !!S.stagesDone[stages.indexOf(s)];
+    });
+  }
+  function markDone(){
+    stages.forEach(function(s,i){if(i===0)return;var d=stageDone(s);
+      tabs.children[i].classList.toggle('done',d&&i!==current);
+      var tile=homeTiles.querySelector('[data-stage="'+i+'"]');if(tile)tile.classList.toggle('done',d)});
+  }
+  function show(i){
+    if(current>0&&stages[current].querySelector('[data-chart]')&&!stages[current].querySelector('textarea,.tick'))S.stagesDone[current]=true;
+    current=Math.max(0,Math.min(stages.length-1,i));
+    stages.forEach(function(s,j){s.hidden=j!==current});
+    [].forEach.call(tabs.children,function(t,j){t.setAttribute('aria-selected',j===current?'true':'false')});
+    main.scrollTop=0;S.stage=current;save();markDone();
+  }
+
+  // Re-apply checks that were saved
+  document.querySelectorAll('.step').forEach(function(step){
+    var k=stepKey(step);if(!S.checked[k])return;
+    var prev=S.scores[k];
+    if(step.hasAttribute('data-typed')){if(typedItems(step).every(filled))checkTyped(step)}
+    else if(step._recheck)step._recheck();
+    if(prev){S.scores[k]=prev;var sc=step.querySelector('[data-score]');if(sc&&sc.textContent!==prev)sc.textContent=prev+' (first try)'}
+  });
+  save();
+
+  // ---------- Summary ----------
+  function buildSummary(){
+    var lines=['THE ONE-SLIDE UPDATE: SELF-STUDY','Jose','Date: '+new Date().toLocaleDateString('en-GB'),''];
+    stages.forEach(function(s,i){
+      if(i===0)return;
+      s.querySelectorAll('.step').forEach(function(st){
+        if(st.querySelector('#summary'))return;
+        var name=st.dataset.name,k=stepKey(st),block=[];
+        if(S.scores[k])block.push('First-try score: '+S.scores[k]);
+        else if(st.hasAttribute('data-typed')||st.hasAttribute('data-sort')||st.hasAttribute('data-matchstep'))block.push('Not checked yet');
+        st.querySelectorAll('textarea').forEach(function(t){if(t.value.trim())block.push(t.getAttribute('aria-label')+': '+t.value.trim())});
+        var picks=[].slice.call(st.querySelectorAll('.pick.on')).map(function(p){var c=p.cloneNode(true);c.querySelector('.k').remove();return c.textContent.trim()});
+        if(picks.length)block.push('Sentences I chose: '+picks.join(' | '));
+        var ticks=st.querySelectorAll('.tick');
+        if(ticks.length){block.push('Checklist after listening back: '+st.querySelectorAll('.tick.on').length+' of '+ticks.length);
+          [].forEach.call(ticks,function(t){block.push((t.classList.contains('on')?'[x] ':'[ ] ')+t.textContent)})}
+        if(st.querySelector('[data-chart]')&&!ticks.length)block.push('Recording: send your voice memo');
+        if(!block.length)block.push('Not done yet');
+        lines.push(name.toUpperCase());block.forEach(function(b){lines.push(b)});lines.push('');
+      });
+    });
+    lines.push('Voice memos to send: Stage 2 (first run) and Stage 7 (final run).');
+    document.getElementById('summary').textContent=lines.join('\n');
+  }
+  document.getElementById('copy').addEventListener('click',function(){
+    buildSummary();var txt=document.getElementById('summary').textContent,msg=document.getElementById('copied');
+    function fallback(){var r=document.createRange();r.selectNodeContents(document.getElementById('summary'));var sel=window.getSelection();sel.removeAllRanges();sel.addRange(r);msg.textContent='Selected. Press Cmd+C or Ctrl+C to copy.'}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(function(){msg.textContent='Copied. Paste it into WhatsApp or an email to Ben.'},fallback)}else fallback();
+  });
+  document.getElementById('dl').addEventListener('click',function(){
+    buildSummary();var blob=new Blob([document.getElementById('summary').textContent],{type:'text/plain'});
+    var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Jose one-slide update answers.txt';document.body.appendChild(a);a.click();
+    setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},500);
+  });
+
+  // ---------- Start again (two taps) ----------
+  var sa=document.getElementById('startAgain'),armed=null,note=document.getElementById('againNote');
+  sa.addEventListener('click',function(){
+    if(armed){clearTimeout(armed);try{localStorage.removeItem(KEY)}catch(e){}location.reload();return}
+    sa.textContent='Tap again to clear everything';note.textContent='This deletes all your answers.';
+    armed=setTimeout(function(){armed=null;sa.textContent='Start again';note.textContent=''},4000);
+  });
+
+  document.addEventListener('keydown',function(e){
+    if(!ov.hidden){if(e.key==='Escape')closeOv();return}
+    if(e.target&&(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA'))return;
+    if(e.key==='ArrowRight')show(current+1);
+    if(e.key==='ArrowLeft')show(current-1);
+  });
+  unlockSteps();
+  show(typeof S.stage==='number'?S.stage:0);
+})();
+</script>
+</body>
+</html>
