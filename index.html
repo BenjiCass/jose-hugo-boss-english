@@ -55,6 +55,7 @@ h2{font-family:var(--display);font-weight:800;font-size:var(--fs-h);line-height:
 .pill.go:hover{background:var(--ink);border-color:var(--ink)}
 .stepbtn[aria-selected="true"],.stepbtn[aria-selected="true"]:hover{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .stepbtn.done{background:var(--gold-soft)}
+.stepbtn.done[aria-selected="true"]{background:var(--ink);color:var(--bg)}
 .stepbtn.locked{opacity:.4;cursor:not-allowed}
 .stepbtn.locked:hover{background:var(--bg)}
 
@@ -74,6 +75,7 @@ h2{font-family:var(--display);font-weight:800;font-size:var(--fs-h);line-height:
 .c1{grid-template-columns:minmax(0,1fr)}
 .c2{grid-template-columns:repeat(2,minmax(0,1fr))}
 .c3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.c4{grid-template-columns:repeat(4,minmax(0,1fr))}
 
 .card{min-width:0;min-height:0;display:flex;flex-direction:column;justify-content:flex-start;gap:.35em;background:var(--panel);border:2px solid var(--ink);padding:var(--pad) clamp(12px,1.2vw,24px);font-size:var(--fs-card);line-height:1.3;text-align:left;font-family:var(--body);color:var(--ink);border-radius:2px;overflow:hidden}
 .k{display:block;font-family:var(--display);font-weight:700;font-size:var(--fs-label);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
@@ -94,7 +96,10 @@ h2{font-family:var(--display);font-weight:800;font-size:var(--fs-h);line-height:
 .howto ol{margin:0;padding-left:1.3em}
 .howto li+li{margin-top:.3em}
 .howto .again{margin-top:.7em;display:flex;gap:12px;align-items:center}
-.tiles{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:var(--gap)}
+.tiles{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:var(--gap)}
+.homeinfo{display:flex;flex-direction:column;gap:var(--gap);min-height:0}
+.howto ul{margin:0;padding-left:1.3em}
+.howto ul li+li{margin-top:.3em}
 .tile{border:2px solid var(--ink);background:var(--panel);padding:calc(var(--pad) * .8);text-align:left;cursor:pointer;font-family:var(--body);color:var(--ink);border-radius:2px;display:flex;flex-direction:column;gap:4px;min-width:0}
 .tile:hover{background:var(--gold-soft)}
 .tile.done{background:var(--gold)}
@@ -129,7 +134,7 @@ h2{font-family:var(--display);font-weight:800;font-size:var(--fs-h);line-height:
 /* Gap and choice items */
 .gaps{flex:1;min-height:0;display:grid;grid-auto-rows:minmax(0,1fr);gap:calc(var(--gap) * .7)}
 .gaps.c2{grid-template-columns:repeat(2,minmax(0,1fr))}
-.gi{border:2px solid var(--ink);background:var(--panel);padding:calc(var(--pad) * .5) clamp(12px,1.3vw,22px);font-size:var(--fs-card);display:flex;flex-direction:column;justify-content:center;gap:.2em;min-height:0;min-width:0;line-height:1.35;overflow:hidden}
+.gi{border:2px solid var(--ink);background:var(--panel);padding:calc(var(--pad) * .5) clamp(12px,1.3vw,22px);font-size:var(--fs-card);display:flex;flex-direction:column;justify-content:flex-start;gap:.2em;min-height:0;min-width:0;line-height:1.35;overflow:hidden}
 .gi p{margin:0}
 .gi .lead{color:var(--muted)}
 .gi input{font:inherit;font-weight:600;width:6.5em;max-width:100%;border:0;border-bottom:2px solid var(--accent);background:var(--bg);padding:.02em .3em;color:var(--ink)}
@@ -156,7 +161,7 @@ h2{font-family:var(--display);font-weight:800;font-size:var(--fs-h);line-height:
 /* Sort */
 .zh{display:block;font-family:var(--display);font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:calc(var(--fs-label) * 1.3);padding:.4em .7em;color:var(--on-accent);background:var(--ink)}
 .zh small{font-family:var(--body);font-weight:500;text-transform:none;letter-spacing:0;font-size:.8em;opacity:.9;margin-left:.4em}
-.tray{flex:none;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:calc(var(--gap) * .8);min-height:calc(var(--fs-card) * 3.4);padding:calc(var(--gap) * .6);border:2px dashed var(--line)}
+.tray{flex:none;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:calc(var(--gap) * .8);min-height:calc(var(--fs-card) * 3.4);padding:calc(var(--gap) * .6);border:2px dashed var(--line)}
 .dcard{background:var(--panel);border:2px solid var(--ink);padding:calc(var(--pad) * .6) clamp(10px,1vw,16px);font-size:var(--fs-card);line-height:1.28;cursor:grab;border-radius:2px;min-width:0;user-select:none}
 .dcard.dragging{opacity:.4}
 .dcard.ok{background:var(--ok-soft);border-color:var(--ok)}
@@ -228,7 +233,7 @@ h2{font-family:var(--display);font-weight:800;font-size:var(--fs-h);line-height:
   section.stage{height:auto;min-height:100%}
   .home .body,.homegrid{display:block}
   .fill,.gaps,.match{grid-auto-rows:auto}
-  .c3,.gaps.c2{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .c3,.c4,.gaps.c2{grid-template-columns:repeat(2,minmax(0,1fr))}
   .tiles{grid-template-columns:repeat(3,minmax(0,1fr))}
   .row{grid-template-columns:minmax(0,1fr)!important}
   .slide{flex:none;min-height:60vh}
@@ -247,18 +252,25 @@ h2{font-family:var(--display);font-weight:800;font-size:var(--fs-h);line-height:
   <div class="body">
     <div class="homegrid">
       <div class="board"><span>One slide.</span><span>Two minutes.</span></div>
-      <div class="howto">
-        <h3>How this works</h3>
-        <ol>
-          <li>Work through Stages 1 to 9 in order. Stages with more than one task have step tabs, for example 3.1 and 3.2.</li>
-          <li>The line in bold at the top of each step tells you what to do.</li>
-          <li>Type or choose your answers. A Check button appears when you've answered everything. Read the explanations after checking.</li>
-          <li>Some tasks ask you to drag boxes with the mouse.</li>
-          <li>Language box (top right of a stage) shows the rules you need. Open it whenever you're unsure.</li>
-          <li>You'll need your phone to record yourself twice, in Stages 2 and 7.</li>
-          <li>Your work saves automatically in this browser on this laptop. Stage 9 makes a summary to send to Ben.</li>
-        </ol>
-        <div class="again"><button class="pill" id="startAgain">Start again</button><span class="hint" id="againNote"></span><span class="progress" id="progress"></span></div>
+      <div class="homeinfo">
+        <div class="howto">
+          <h3>By the end, you can</h3>
+          <ul>
+            <li>Present one slide in two minutes: open, point, explain, close.</li>
+            <li>Describe changes accurately with from, to, by and percentage points.</li>
+            <li>Rank results and say numbers the way you would in a call.</li>
+            <li>Handle the call: technical problems and questions from HQ.</li>
+          </ul>
+        </div>
+        <div class="howto">
+          <h3>How it works</h3>
+          <ol>
+            <li>Use the Language box to help you.</li>
+            <li>Work through the stages one by one.</li>
+            <li>Check your answers, then move on.</li>
+          </ol>
+          <div class="again"><button class="pill" id="startAgain">Start again</button><span class="hint" id="againNote"></span></div>
+        </div>
       </div>
     </div>
     <div class="tiles" id="homeTiles"></div>
@@ -301,22 +313,25 @@ h2{font-family:var(--display);font-weight:800;font-size:var(--fs-h);line-height:
       <p class="task">Each sentence comes from a presentation of your slide. Choose the correct word, then press Check.</p>
       <div class="gaps c2 tight">
         <div class="gi"><p>I'd like to ___ your attention firstly to BOSS Green. <span class="choice" role="group"><button class="opt" data-ok>draw</button><button class="opt">make</button></span></p><span class="why" hidden>We say "draw someone's attention to" something.</span></div>
+        <div class="gi"><p>If you ___ at the third line, you'll see the biggest change. <span class="choice" role="group"><button class="opt">see</button><button class="opt" data-ok>look</button></span></p><span class="why" hidden>"Look at" is the action. "See" is the result.</span></div>
         <div class="gi"><p>Sell-through rose sharply, ___ 39% to 52%. <span class="choice" role="group"><button class="opt">since</button><button class="opt" data-ok>from</button></span></p><span class="why" hidden>Use "from ... to" for the start and end points.</span></div>
-        <div class="gi"><p>This is largely ___ demand for trainers. <span class="choice" role="group"><button class="opt" data-ok>due to</button><button class="opt">because</button></span></p><span class="why" hidden>"Due to" + noun. "Because" needs a subject and verb: because demand was strong.</span></div>
-        <div class="gi"><p>HUGO, ___, fell by six percentage points. <span class="choice" role="group"><button class="opt">although</button><button class="opt" data-ok>however</button></span></p><span class="why" hidden>"However" can sit between commas. "Although" needs a full clause after it.</span></div>
-        <div class="gi"><p>BOSS Black dipped slightly, ___ strong demand for suits. <span class="choice" role="group"><button class="opt" data-ok>despite</button><button class="opt">as a result of</button></span></p><span class="why" hidden>It fell even though demand was strong, so it's a contrast: "despite" + noun.</span></div>
-        <div class="gi"><p>On balance, these results are ___. <span class="choice" role="group"><button class="opt">encouraged</button><button class="opt" data-ok>encouraging</button></span></p><span class="why" hidden>"-ing" describes the results. "-ed" describes how people feel: we're encouraged.</span></div>
-        <div class="gi"><p>It's highly ___ that we'll meet our autumn target. <span class="choice" role="group"><button class="opt" data-ok>likely</button><button class="opt">probably</button></span></p><span class="why" hidden>"It's highly likely that ...". "Probably" goes with the verb: we'll probably meet it.</span></div>
+        <div class="gi"><p>This is largely ___ demand for trainers. <span class="choice" role="group"><button class="opt" data-ok>due to</button><button class="opt">because</button></span></p><span class="why" hidden>"Due to" + noun. "Because" + subject and verb.</span></div>
+        <div class="gi"><p>HUGO, ___, fell by six percentage points. <span class="choice" role="group"><button class="opt">although</button><button class="opt" data-ok>however</button></span></p><span class="why" hidden>"However" can sit between commas. "Although" needs a clause.</span></div>
+        <div class="gi"><p>BOSS Black dipped slightly, ___ strong demand for suits. <span class="choice" role="group"><button class="opt" data-ok>despite</button><button class="opt">as a result of</button></span></p><span class="why" hidden>A contrast: it fell even though demand was strong.</span></div>
+        <div class="gi"><p>On balance, these results are ___. <span class="choice" role="group"><button class="opt">encouraged</button><button class="opt" data-ok>encouraging</button></span></p><span class="why" hidden>"-ing" describes the results. "-ed" describes people.</span></div>
+        <div class="gi"><p>It's highly ___ that we'll meet our autumn target. <span class="choice" role="group"><button class="opt" data-ok>likely</button><button class="opt">probably</button></span></p><span class="why" hidden>"It's highly likely that". "Probably" goes with the verb.</span></div>
       </div>
       <div class="stepfoot"><span class="hint" data-wait>Answer every sentence to see Check.</span><span class="score" data-score></span><button class="pill go" data-check hidden>Check</button><button class="pill" data-showkey hidden>Show answers</button><button class="resetlink" data-reset>Reset</button></div>
     </div>
     <div class="step" data-step="2" data-name="3.2 Steal three">
       <p class="task">Choose three sentences you'll use in your next call with HQ. Then write one sentence about your own real sales using one of them.</p>
-      <div class="fill c3 mid" data-pick="3">
+      <div class="fill c4" data-pick="3">
         <button class="card pick"><span class="k">Point at the chart</span>I'd like to draw your attention firstly to BOSS Green.</button>
-        <button class="card pick"><span class="k">Guide the eye</span>If you look at the second bar from the left, you'll see the biggest change.</button>
+        <button class="card pick"><span class="k">Guide the eye</span>If you look at the third line, you'll see the biggest change.</button>
         <button class="card pick"><span class="k">Give the movement</span>Sell-through rose sharply, from 39% to 52%.</button>
         <button class="card pick"><span class="k">Give the reason</span>This is largely due to demand for trainers.</button>
+        <button class="card pick"><span class="k">Show a contrast</span>HUGO, however, fell by six percentage points.</button>
+        <button class="card pick"><span class="k">Explain a dip</span>BOSS Black dipped slightly, despite strong demand for suits.</button>
         <button class="card pick"><span class="k">Give a verdict</span>On balance, these results are encouraging.</button>
         <button class="card pick"><span class="k">Look ahead</span>It's highly likely that we'll meet our autumn target.</button>
       </div>
@@ -343,17 +358,20 @@ h2{font-family:var(--display);font-weight:800;font-size:var(--fs-h);line-height:
       <div class="stepfoot"><span class="hint" data-wait>Fill every gap to see Check.</span><span class="score" data-score></span><button class="pill go" data-check hidden>Check</button><button class="pill" data-showkey hidden>Show answers</button><button class="resetlink" data-reset>Reset</button></div>
     </div>
     <div class="step" data-step="2" data-name="4.2 Fast, big, good" data-sort>
-      <p class="task">Drag each word into the right column, then press Check. <span>Each column has three words.</span></p>
+      <p class="task">Drag each word into the right column, then press Check. <span>Each column has four words.</span></p>
       <div class="tray" data-zone="tray">
         <div class="dcard" draggable="true" data-cat="news">encouraging</div>
         <div class="dcard" draggable="true" data-cat="speed">sluggish</div>
         <div class="dcard" draggable="true" data-cat="size">enormous</div>
         <div class="dcard" draggable="true" data-cat="speed">rapid</div>
-        <div class="dcard" draggable="true" data-cat="news">disappointing</div>
+        <div class="dcard" draggable="true" data-cat="news">worrying</div>
         <div class="dcard" draggable="true" data-cat="size">slight</div>
         <div class="dcard" draggable="true" data-cat="speed">gradual</div>
         <div class="dcard" draggable="true" data-cat="news">excellent</div>
         <div class="dcard" draggable="true" data-cat="size">moderate</div>
+        <div class="dcard" draggable="true" data-cat="speed">steady</div>
+        <div class="dcard" draggable="true" data-cat="news">disappointing</div>
+        <div class="dcard" draggable="true" data-cat="size">considerable</div>
       </div>
       <div class="zones">
         <div class="zone" data-zone="speed"><span class="zh">How fast <small>rapid, slow</small></span></div>
@@ -430,7 +448,7 @@ h2{font-family:var(--display);font-weight:800;font-size:var(--fs-h);line-height:
         <div class="mrow" data-key="1"><div class="mfix"><span class="mn">1</span>OK, let's get started.</div><div class="mslot"><div class="mtile" draggable="true" data-key="1">Can everybody see my screen?</div></div></div>
         <div class="mrow" data-key="2"><div class="mfix"><span class="mn">2</span>If you have any questions,</div><div class="mslot"><div class="mtile" draggable="true" data-key="2">please feel free to interrupt.</div></div></div>
         <div class="mrow" data-key="3"><div class="mfix"><span class="mn">3</span>I've divided my update</div><div class="mslot"><div class="mtile" draggable="true" data-key="3">into three main parts.</div></div></div>
-        <div class="mrow" data-key="4"><div class="mfix"><span class="mn">4</span>I'd like to draw your attention</div><div class="mslot"><div class="mtile" draggable="true" data-key="4">to the second bar from the left.</div></div></div>
+        <div class="mrow" data-key="4"><div class="mfix"><span class="mn">4</span>I'd like to draw your attention</div><div class="mslot"><div class="mtile" draggable="true" data-key="4">to the third line from the top.</div></div></div>
         <div class="mrow" data-key="5"><div class="mfix"><span class="mn">5</span>I'll come back</div><div class="mslot"><div class="mtile" draggable="true" data-key="5">to that in a moment.</div></div></div>
         <div class="mrow" data-key="6"><div class="mfix"><span class="mn">6</span>Right, that brings me</div><div class="mslot"><div class="mtile" draggable="true" data-key="6">to the end of my update.</div></div></div>
       </div>
@@ -461,7 +479,7 @@ h2{font-family:var(--display);font-weight:800;font-size:var(--fs-h);line-height:
         <div class="col">
           <div class="ticks">
             <button class="tick">I opened the call and checked the screen.</button>
-            <button class="tick">I pointed at one bar: "I'd like to draw your attention to ..."</button>
+            <button class="tick">I pointed at one line: "I'd like to draw your attention to ..."</button>
             <button class="tick">I used "from ... to" and "by".</button>
             <button class="tick">I said "percentage points" correctly.</button>
             <button class="tick">I gave one reason: "This is due to ..."</button>
@@ -481,10 +499,11 @@ h2{font-family:var(--display);font-weight:800;font-size:var(--fs-h);line-height:
   <div class="steps"><button class="pill stepbtn" data-step="1">8.1 How sure are you?</button><button class="pill stepbtn" data-step="2">8.2 HQ asks</button></div>
   <div class="body">
     <div class="step" data-step="1" data-name="8.1 How sure are you?">
-      <p class="task">HQ asks: "Will Iberia hit its autumn target?" Write three answers using the phrases below: one almost certain, one possible and one unlikely.</p>
+      <p class="task">HQ asks: "Will Iberia hit its autumn target?" Write one answer for each level, using the phrases below.</p>
       <div data-bank="certainty"></div>
-      <div class="fill c3">
+      <div class="fill c4">
         <div class="card"><span class="k">Almost certain</span><textarea aria-label="Almost certain" spellcheck="false"></textarea></div>
+        <div class="card"><span class="k">Probable</span><textarea aria-label="Probable" spellcheck="false"></textarea></div>
         <div class="card"><span class="k">Possible</span><textarea aria-label="Possible" spellcheck="false"></textarea></div>
         <div class="card"><span class="k">Unlikely</span><textarea aria-label="Unlikely" spellcheck="false"></textarea></div>
       </div>
@@ -519,7 +538,7 @@ h2{font-family:var(--display);font-weight:800;font-size:var(--fs-h);line-height:
       <div class="stepfoot"><button class="resetlink" data-reset>Reset</button></div>
     </div>
     <div class="step" data-step="2" data-name="9.2 Your summary">
-      <p class="task">Copy your summary and send it to Ben by WhatsApp or email, together with your two voice recordings from Stages 2 and 7.</p>
+      <p class="task">Copy your summary and send it to Ben by WhatsApp or email, together with your two voice recordings: your first run and your final run.</p>
       <pre class="summary" id="summary"></pre>
       <div class="stepfoot"><span class="copied" id="copied"></span><button class="pill" id="dl">Download as a file</button><button class="pill go" id="copy">Copy summary</button></div>
     </div>
@@ -597,7 +616,7 @@ h2{font-family:var(--display);font-weight:800;font-size:var(--fs-h);line-height:
     <tr><td>Start</td><td>OK, let's get started. Can everybody see my screen?</td></tr>
     <tr><td>Invite questions</td><td>If you have any questions, please feel free to interrupt.</td></tr>
     <tr><td>Give the structure</td><td>I've divided my update into three main parts.</td></tr>
-    <tr><td>Point at the chart</td><td>I'd like to draw your attention to the second bar from the left.</td></tr>
+    <tr><td>Point at the chart</td><td>I'd like to draw your attention to the third line from the top.</td></tr>
     <tr><td>Park a question</td><td>I'll come back to that in a moment.</td></tr>
     <tr><td>Finish</td><td>Right, that brings me to the end of my update. I'll stop sharing there.</td></tr>
     <tr><td>Technical problems</td><td>Sorry, you're breaking up. I think my screen has frozen.</td></tr>
@@ -618,7 +637,7 @@ h2{font-family:var(--display);font-weight:800;font-size:var(--fs-h);line-height:
 
 <script>
 (function(){
-  var KEY='jose-one-slide-selfstudy-v1';
+  var KEY='jose-one-slide-selfstudy-v2';
   var S={};
   try{S=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){S={}}
   ['inputs','choices','texts','ticks','picks','match','sort','checked','scores','gates','rec','sent'].forEach(function(k){if(!S[k])S[k]={}});
@@ -934,9 +953,8 @@ h2{font-family:var(--display);font-weight:800;font-size:var(--fs-h);line-height:
       var all=n===steps.length;
       tabs.children[i].classList.toggle('done',all);
       var tile=homeTiles.querySelector('[data-stage="'+i+'"]');
-      if(tile){tile.classList.toggle('done',all);tile.querySelector('.prog').textContent=all?'Done':(steps.length>1?n+' of '+steps.length+' steps done':'Not done yet')}
+      if(tile){tile.classList.toggle('done',all);tile.querySelector('.prog').textContent=all?'Done':(n?n+' of '+steps.length+' steps done':'')}
     });
-    var pr=document.getElementById('progress');if(pr)pr.textContent=done+' of '+total+' steps done';
   }
   function show(i){
     current=Math.max(0,Math.min(stages.length-1,i));
@@ -976,7 +994,7 @@ h2{font-family:var(--display);font-weight:800;font-size:var(--fs-h);line-height:
         lines.push(name.toUpperCase());block.forEach(function(b){lines.push(b)});lines.push('');
       });
     });
-    lines.push('Voice memos to send: Stage 2 (first run) and Stage 7 (final run).');
+    lines.push('Voice memos to send: first run and final run.');
     document.getElementById('summary').textContent=lines.join('\n');
   }
   document.getElementById('copy').addEventListener('click',function(){
