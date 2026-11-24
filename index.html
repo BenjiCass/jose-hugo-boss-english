@@ -6,7 +6,7 @@
 <title>The One-Slide Update</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&display=swap">
 <style>
-/* Self-study version. One screen per step, stage tabs and step tabs for navigation. Typed and chosen answers with Check, explanations after checking, work saved on this laptop, reminder to send both recordings to Ben at the end. BOSS reference palette: monochrome structure, camel for used states, deep camel accent. */
+/* Self-study version. One screen per step, stage tabs and step tabs for navigation. Typed and chosen answers with Check, explanations after checking, work saved on this laptop, wrap-up with call card and summary to send at the end. BOSS reference palette: monochrome structure, camel for used states, deep camel accent. */
 :root{
   --bg:#ffffff;--ink:#111111;--muted:#5e5e5e;--line:#e2dbd0;
   --gold:#c19a6b;--gold-soft:#f1e7da;--panel:#f2eee8;
@@ -101,7 +101,13 @@ h2{font-family:var(--display);font-weight:800;font-size:var(--fs-h);line-height:
 .howto ul{margin:0;padding-left:1.3em}
 .howto ul li+li{margin-top:.3em}
 .howto p{margin:0 0 .8em}
-.sendnote{margin-right:auto;font-size:var(--fs-card);font-weight:600;color:var(--accent)}
+.ex{font-size:.82em;color:var(--muted);font-style:italic}
+.summary{flex:1;min-height:0;overflow:auto;border:2px solid var(--ink);background:var(--panel);padding:var(--pad) clamp(14px,1.6vw,28px);font-family:var(--body);font-size:var(--fs-label);line-height:1.45;white-space:pre-wrap;margin:0}
+.callcard{flex:1;min-height:0;overflow:auto;border:2px solid var(--accent);background:var(--bg);padding:var(--pad) clamp(14px,1.6vw,28px);font-size:var(--fs-label);line-height:1.45}
+.callcard h3{margin:0 0 .5em;font-family:var(--display);font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);font-size:1.25em}
+.callcard p{margin:0 0 .35em}
+.callcard p.gap{margin-top:.8em}
+.callcard b{font-weight:700}
 .tile{border:2px solid var(--ink);background:var(--panel);padding:calc(var(--pad) * .8);text-align:left;cursor:pointer;font-family:var(--body);color:var(--ink);border-radius:2px;display:flex;flex-direction:column;gap:4px;min-width:0}
 .tile:hover{background:var(--gold-soft)}
 .tile.done{background:var(--gold)}
@@ -525,7 +531,54 @@ flex:1;min-height:0;overflow:auto;border:2px solid var(--ink);background:var(--p
           <button class="pill go" data-box="modelPres" style="align-self:flex-start">Show the model presentation</button>
         </div>
       </div>
-      <div class="stepfoot"><span class="sendnote">Last step: send both recordings to Ben by WhatsApp or email.</span><span class="score" data-tickcount></span><button class="pill rec" data-rec aria-pressed="false">I've recorded my final run</button><button class="resetlink" data-reset>Reset</button></div>
+      <div class="stepfoot"><span class="score" data-tickcount></span><button class="pill rec" data-rec aria-pressed="false">I've recorded my final run</button><button class="resetlink" data-reset>Reset</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="stage" data-num="9" data-title="Wrap-up">
+  <div class="stage-head"><h2>What changed?</h2></div>
+  <div class="steps"><button class="pill stepbtn" data-step="1">9.1 Before and after</button><button class="pill stepbtn" data-step="2">9.2 Your next real call</button><button class="pill stepbtn" data-step="3">9.3 Send to Ben</button></div>
+  <div class="body">
+    <div class="step" data-step="1" data-name="9.1 Before and after">
+      <p class="task">Listen to your first run, then your final run. Answer each question in one or two sentences. <span>Be honest: this helps Ben plan your next class.</span></p>
+      <div class="fill c3">
+        <div class="card"><span class="k">What improved</span>What's the clearest thing you did better in your final run?<textarea aria-label="What improved" spellcheck="false"></textarea></div>
+        <div class="card"><span class="k">Still missing</span>Which checklist item from Stage 8 did you still miss, or only half do?<textarea aria-label="Still missing" spellcheck="false"></textarea></div>
+        <div class="card"><span class="k">Stumble</span>Which number or phrase did you stumble on? Write it exactly as you said it.<textarea aria-label="Stumble" spellcheck="false"></textarea></div>
+      </div>
+      <div class="stepfoot"><button class="resetlink" data-reset>Reset</button></div>
+    </div>
+    <div class="step" data-step="2" data-name="9.2 Your next real call">
+      <p class="task">Think of your next real update to HQ. Write one sentence for each move, using your own real figures. <span>Then say all four aloud, in order, in under a minute.</span></p>
+      <div class="fill c4">
+        <div class="card"><span class="k">Open</span>Say what the slide shows.<span class="ex">This slide shows full-price sell-through for our five lines in Iberia, compared with last year.</span><textarea aria-label="Open" spellcheck="false"></textarea></div>
+        <div class="card"><span class="k">Point and move</span>Point at one line and give the change with from, to and by.<span class="ex">I'd like to draw your attention to BOSS Green. It rose from 39% to 52%, an increase of 13 percentage points.</span><textarea aria-label="Point and move" spellcheck="false"></textarea></div>
+        <div class="card"><span class="k">Reason</span>Give one reason.<span class="ex">This is largely due to demand for trainers.</span><textarea aria-label="Reason" spellcheck="false"></textarea></div>
+        <div class="card"><span class="k">Verdict and close</span>Say how sure you are, then close.<span class="ex">It's likely that we'll meet our autumn target. I'll stop sharing there.</span><textarea aria-label="Verdict and close" spellcheck="false"></textarea></div>
+      </div>
+      <div class="stepfoot"><button class="resetlink" data-reset>Reset</button></div>
+    </div>
+    <div class="step" data-step="3" data-name="9.3 Send to Ben">
+      <p class="task">Copy your summary and send it to Ben by WhatsApp or email. <span>Attach both voice recordings: your first run and your final run.</span></p>
+      <div class="row" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:minmax(0,1fr)">
+        <div class="col">
+          <div class="callcard" id="callcard">
+            <h3>Your call card</h3>
+            <p><b>Open:</b> OK, let's get started. Can everybody see my screen?</p>
+            <p><b>Point:</b> I'd like to draw your attention to ...</p>
+            <p><b>Move:</b> It rose from 39% to 52%. It fell by six percentage points.</p>
+            <p><b>Reason:</b> This is largely due to ... / As a result of ...</p>
+            <p><b>Verdict:</b> It's highly likely that ... / We're unlikely to ...</p>
+            <p><b>Close:</b> I'll stop sharing there. Any questions?</p>
+            <p class="gap"><b>Points or per cent:</b> 44% to 41% is a fall of three percentage points, or about 7% in relative terms.</p>
+            <p><b>Say it:</b> 0.5% is "nought point five per cent". &euro;18.4m is "eighteen point four million euros". Q3 is "the third quarter".</p>
+            <p><b>Instead of "very":</b> sharp, rapid, slight, considerable.</p>
+          </div>
+        </div>
+        <div class="col"><pre class="summary" id="summary"></pre></div>
+      </div>
+      <div class="stepfoot"><span class="copied" id="copied"></span><button class="pill" id="dlcard">Download call card</button><button class="pill go" id="copy">Copy summary</button></div>
     </div>
   </div>
 </section>
@@ -905,6 +958,7 @@ flex:1;min-height:0;overflow:auto;border:2px solid var(--ink);background:var(--p
     s._pick=function(k){
       btns.forEach(function(x){x.setAttribute('aria-selected',x.dataset.step===k?'true':'false')});
       steps.forEach(function(x){x.hidden=x.dataset.step!==k});
+      var cur=s.querySelector('.step[data-step="'+k+'"]');if(cur&&cur.querySelector('#summary'))buildSummary();
     };
     btns.forEach(function(x){x.addEventListener('click',function(){if(x.classList.contains('locked'))return;s._pick(x.dataset.step);x.blur()})});
     if(btns.length)s._pick('1');
@@ -918,6 +972,7 @@ flex:1;min-height:0;overflow:auto;border:2px solid var(--ink);background:var(--p
   function stepDone(st){
     var k=stepKey(st);
     if(st.hasAttribute('data-typed')||st.hasAttribute('data-sort')||st.hasAttribute('data-matchstep'))return !!S.checked[k];
+    if(st.querySelector('#summary'))return !!S.sent.done;
     var ta=[].slice.call(st.querySelectorAll('textarea')),tOk=ta.every(function(t){return t.value.trim()});
     if(st.hasAttribute('data-gatestep'))return tOk&&!!S.gates[k];
     var pk=st.querySelector('[data-pick]');if(pk&&st.querySelectorAll('.pick.on').length<+pk.dataset.pick)return false;
@@ -955,6 +1010,43 @@ flex:1;min-height:0;overflow:auto;border:2px solid var(--ink);background:var(--p
     if(prev){S.scores[k]=prev;var sc=step.querySelector('[data-score]');if(sc&&sc.textContent!==prev)sc.textContent=prev+' (first try)'}
   });
   save();
+
+  // ---------- Summary and call card ----------
+  function buildSummary(){
+    var L=['THE ONE-SLIDE UPDATE: JOSE','Date: '+new Date().toLocaleDateString('en-GB'),''];
+    var ticks=[].slice.call(document.querySelectorAll('section.stage[data-title="Final run"] .tick'));
+    L.push('FINAL RUN CHECKLIST: '+ticks.filter(function(t){return t.classList.contains('on')}).length+' of '+ticks.length);
+    ticks.forEach(function(t){L.push((t.classList.contains('on')?'[x] ':'[ ] ')+t.textContent.trim())});
+    L.push('');
+    [['BEFORE AND AFTER','9.1 Before and after'],['MY NEXT REAL CALL','9.2 Your next real call']].forEach(function(g){
+      L.push(g[0]);
+      var st=document.querySelector('.step[data-name="'+g[1]+'"]');
+      st.querySelectorAll('textarea').forEach(function(t){L.push(t.getAttribute('aria-label')+': '+(t.value.trim()||'(not written)'))});
+      L.push('');
+    });
+    L.push('FIRST-TRY SCORES');
+    var any=false;
+    document.querySelectorAll('.step[data-typed],.step[data-sort],.step[data-matchstep]').forEach(function(st){
+      var k=stepKey(st);L.push(st.dataset.name+': '+(S.scores[k]||'not checked'));any=true});
+    if(!any)L.push('none');
+    L.push('');
+    L.push('Attached: first run and final run voice recordings.');
+    document.getElementById('summary').textContent=L.join('\n');
+  }
+  document.getElementById('copy').addEventListener('click',function(){
+    buildSummary();var txt=document.getElementById('summary').textContent,msg=document.getElementById('copied');
+    var done='Copied. Paste it into WhatsApp or an email to Ben, and attach both recordings.';
+    function fallback(){var r=document.createRange();r.selectNodeContents(document.getElementById('summary'));var sel=window.getSelection();sel.removeAllRanges();sel.addRange(r);msg.textContent='Selected. Press Cmd+C or Ctrl+C to copy, then send it to Ben with both recordings.'}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(function(){msg.textContent=done},fallback)}else fallback();
+    S.sent.done=true;save();markDone();
+  });
+  document.getElementById('dlcard').addEventListener('click',function(){
+    var c=document.getElementById('callcard'),out=['YOUR CALL CARD: THE ONE-SLIDE UPDATE',''];
+    c.querySelectorAll('p').forEach(function(p){if(p.classList.contains('gap'))out.push('');out.push(p.textContent.trim())});
+    var blob=new Blob([out.join('\n')],{type:'text/plain'});
+    var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Call card, one-slide update.txt';document.body.appendChild(a);a.click();
+    setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},500);
+  });
 
   // ---------- Start again (two taps) ----------
   var sa=document.getElementById('startAgain'),armed=null,note=document.getElementById('againNote');
